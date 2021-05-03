@@ -1,0 +1,4 @@
+Projenin çalışabilir duruma gelmesi için;
+	1-web/WEB-INF/lib içerisinde ki javaee-api-8.0.1.jar dosyasını uygulamaya eklemelisiniz.
+	2-PostgreSQL JDBC Driver - postgresql-42.2.16.jar dosyasını kitaplığa eklemelisiniz.
+	3-DB/ dosyasının içerisinde ki DB_TAR.tar dosyasını PostgreSQL'de 'proje' adında bir veritabanı oluşturup restore etmelisiniz.

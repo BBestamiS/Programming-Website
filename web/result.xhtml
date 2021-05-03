@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="main.css" />
+    </h:head>
+    <h:body class="background-color">
+        <div class="container-fluid g-0 container-controller background-color">
+            <div class="container"><!--Header başalngıcı-->
+                <header class="d-flex justify-content-center py-3 border-bottom border-success">
+                    <h:form>
+                        <ul class="nav nav-pills">
+
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="index" value="Login Demo"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="quiz" value="Quiz Demo"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="note" value="Note Demo"/>
+                            </li>
+                        </ul>
+                    </h:form>
+                </header>
+                <div class="container col-md-10 col-sm-12">
+                    <div class="row content d-flex justify-content-center align-items-center">
+                        <div class="col-md-10">
+                            <div class="box shadow bg-white p-4 rounded-3">
+                                <h:form>
+                                    <h:dataTable class="table table-borderless" value="#{sinavController.sonucList}" var="sonuc">
+                                        <h:column>
+                                            <f:facet name="header">Soru</f:facet>
+                                                #{sonuc.soru}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Doğru Cevap</f:facet>
+                                                #{sonuc.dogru_cevap}
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">Verilen Cevap</f:facet>
+                                                #{sonuc.cevap}
+                                        </h:column>
+                                        <h:column >
+                                            <f:facet name="header">Sonuç</f:facet>
+                                                #{sonuc.sonuc}
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="main.css" />
+
+    </h:head>
+    <h:body class="background-color" rendered="#{sinavController.sayfaControl == 0}">
+        <div class="container-fluid g-0 container-controller background-color">
+            <div class="container"><!--Header başalngıcı-->
+                <header class="d-flex justify-content-center py-3 border-bottom border-success">
+                    <h:form>
+                        <ul class="nav nav-pills">
+
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="index" value="Login Demo"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="quiz" value="Quiz Demo"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="note" value="Note Demo"/>
+                            </li>
+                        </ul>
+                    </h:form>
+                </header>
+                <section class="container col-md-6 col-sm-12">
+                        <div class="row content d-flex justify-content-center align-items-center">
+                            <div class="col-md-8">
+                                <div class="box shadow p-4 rounded-3">
+                                    <h3 class="mb-4 text-center fs-1" style="color: white">Flutter - Dart Sınavı</h3>
+                                    <h:form>
+                                        
+                                        <div class="form-group d-grid gap-2 mb-3">
+                                            <h:commandButton action="#{sinavController.sinavaBasla()}"  class="btn btn-dark btn-lg border-0 rounded-0" style="color: orange" value="Başla"  />
+                                        </div>
+                                        
+
+                                    </h:form>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </section>
+            </div>
+        </div>
+    </h:body>
+    <h:body  class="background-color" rendered="#{sinavController.sayfaControl == 1}" >
+        <div class="container-fluid g-0 container-controller background-color">
+            <div class="container"><!--Header başalngıcı-->
+                <header class="d-flex justify-content-center py-3 border-bottom border-success">
+                    <h:form>
+                        <ul class="nav nav-pills">
+
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="#{sinavController.sayfaGecis('index')}" value="Login Demo"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="quiz" value="Quiz Demo"/>
+                            </li>
+                            <li class="nav-item">
+                                <h:commandLink class="nav-link link-light" action="#{sinavController.sayfaGecis('note')}" value="Note Demo"/>
+                            </li>
+                        </ul>
+                    </h:form>
+
+                </header>
+            </div><!--Header bitiş-->
+            <div class="container">
+                <div class="row">
+                    <section class="container col-md-6 col-sm-12"><!--login form başlangıç-->
+                        <div class="row content d-flex justify-content-center align-items-center">
+                            <div class="col-md-12">
+                                <div class="box shadow bg-white p-4 rounded-3">
+                                    <p class=" text-center fs-3">#{sinavController.soru.soru}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section><!--login form bitiş-->
+                    <div class="container col-md-6 col-sm-12">
+                        <div class="row content d-flex justify-content-center align-items-center">
+                            <div class="col-md-11">
+                                <div class="box   p-4 rounded-3">
+                                    <div class="container">
+                                        <h:form>
+                                            <div class="row">
+                                                <div class=" d-grid col-12 text-center mb-2">
+                                                    <h:commandLink rendered="#{sinavController.secim() != '1'}" action="#{sinavController.cevapEkle('1')}" class="btn btn-lg btn-danger rounded-pill" value="#{sinavController.soru.cevap_bir}"/>
+                                                    <h:commandLink rendered="#{sinavController.secim() == '1'}" action="#{sinavController.cevapEkle('1')}" class="btn btn-lg shadow btn-light rounded-pill" value="#{sinavController.soru.cevap_bir}"/>
+                                                </div>
+                                                <div class=" d-grid col-12 text-center mb-2">
+                                                    <h:commandLink rendered="#{sinavController.secim() != '2'}" action="#{sinavController.cevapEkle('2')}" class="btn btn-lg btn-danger rounded-pill" value="#{sinavController.soru.cevap_iki}" />
+                                                    <h:commandLink rendered="#{sinavController.secim() == '2'}" action="#{sinavController.cevapEkle('2')}" class="btn btn-lg shadow btn-light rounded-pill" value="#{sinavController.soru.cevap_iki}" />
+                                                </div>
+                                                <div class="d-grid col-12 text-center mb-2">
+                                                    <h:commandLink rendered="#{sinavController.secim() != '3'}" action="#{sinavController.cevapEkle('3')}" class="btn btn-lg btn-danger rounded-pill" value="#{sinavController.soru.cevap_uc}" />
+                                                    <h:commandLink rendered="#{sinavController.secim() == '3'}" action="#{sinavController.cevapEkle('3')}" class="btn btn-lg shadow btn-light rounded-pill" value="#{sinavController.soru.cevap_uc}" />
+                                                </div>
+                                                <div class=" d-grid col-12 text-center">
+                                                    <h:commandLink rendered="#{sinavController.secim() != '4'}" action="#{sinavController.cevapEkle('4')}" class="btn btn-lg btn-danger rounded-pill" value="#{sinavController.soru.cevap_dort}" />
+                                                    <h:commandLink rendered="#{sinavController.secim() == '4'}" action="#{sinavController.cevapEkle('4')}" class="btn btn-lg shadow btn-light rounded-pill" value="#{sinavController.soru.cevap_dort}" />
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container col-6 mb-5">
+                        <div class="row">
+                            <h:form class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center">
+                                    <div class="col d-inline ">
+                                        <h:commandLink rendered="#{sinavController.control != 0}" action="#{sinavController.setControlAzalt()}" class="btn btn-danger btn-lg border-0 rounded-0 me-3" value="Önceki" />
+
+                                    </div>
+                                    <div class="col d-inline ">
+                                        <h:commandLink rendered="#{sinavController.control != 4}" action="#{sinavController.setControlArttir()}" class="btn btn-success btn-lg border-0 rounded-0" value="Sonraki" />
+                                    </div>
+                                    <div class="col d-inline ">
+                                        <h:commandLink rendered="#{sinavController.control == 4}" action="#{sinavController.bitir()}" class="btn btn-success btn-lg border-0 rounded-0" value="Bitir" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </h:body>
+</html>
+

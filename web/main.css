@@ -1,0 +1,59 @@
+.yuk1{
+    height: 80%;
+    width: 100%;
+}
+.yuk{
+    height: 45vh;
+   
+}
+.font{
+    font-size: 30px;
+}
+.buton{
+    border: 0px;
+    width: 75%;
+
+}
+.content{
+    height: 80vh;
+
+}
+
+
+.yuk2{
+    height: 100px;
+    max-width: 700px;
+}
+.yuk3{
+    height: 600px;
+    width: 600px;
+}
+.yuk4{
+    width: 50%;
+}
+.yuk5{
+    height:  30px;
+
+}
+.yuk6{
+    width:  1500px;
+}
+.background-color{
+    background-color: #2C2C32;
+}
+.link-color{
+    color: orangered;
+}
+.body{
+    height: 90vh;
+}
+@font-face {
+    font-family: 'Okta';
+    src: url(font/okta.ttf);
+    font-style: normal;
+    font-weight: 100;
+}
+*{
+    font-family: Okta;
+    font-weight: 100;
+}
