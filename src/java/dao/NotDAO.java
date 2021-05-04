@@ -27,6 +27,7 @@ public class NotDAO extends DBConnection{
     }
 
     public List<Not> read(int kullanici_id , int konu_id, int dil_id) {
+        System.out.println("kullanici_id = "+kullanici_id + " konu_id = "+konu_id+" dil_id = "+dil_id);
         List<Not> list = new ArrayList<>();
         try {
             Statement st = this.getConnection().createStatement();

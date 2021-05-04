@@ -22,8 +22,10 @@ public class NotController implements Serializable{
     private NotDAO notDAO;
     private Not not;
     
-    public String create() {
-        System.out.println(this.getNot().getNote());
+    public String create(int kullanici_id, int konu_id, int dil_id) {
+        this.getNot().setKullanici_id(kullanici_id);
+        this.getNot().setKonu_id(konu_id);
+        this.getNot().setDil_id(dil_id);
         this.getNotDAO().create(this.getNot());
         return "mainScreen";
     }

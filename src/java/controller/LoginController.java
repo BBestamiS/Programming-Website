@@ -26,13 +26,13 @@ public class LoginController implements Serializable {
     private int loginPage;
 
     public String login(){
-       
-        if(getKullaniciDAO().login(getKullanici()).equals("yok")){
+        setKullanici(getKullaniciDAO().login(getKullanici()));
+        System.out.println("kullanici adi = "+this.getKullanici().getIsim());
+        if(this.getKullanici() == null){
             mesajYazdir();
            return "login";
         }else{
             mesajKaldir();
-            getKullanici().setIsim(getKullaniciDAO().login(getKullanici()));
             return  "mainScreen";
         }
     }

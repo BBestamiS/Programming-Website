@@ -46,6 +46,8 @@ public class AnaEkranController implements Serializable{
         this.setKonu(konu);
         return "mainScreen";
     }
+    
+   
     public Konu getKonu() {
         if(this.konu == null){
             this.konu = new Konu();

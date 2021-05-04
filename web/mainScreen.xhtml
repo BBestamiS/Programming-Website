@@ -51,31 +51,34 @@
             <div class="row " style="height: 100%;">
                 <div class="col-2 g-0">
                     <div class="col-md-12">
-                                <div class="p-4 rounded-3">
-                                    <h:form>
-                                        <p class="text-center border-bottom border-white" style="color: white" > Konular</p>
-                                        <h:dataTable class="table" value="#{anaEkranController.konuGetir}" var="konu">
-                                            <h:column class="border-bottom-0 text-center">
-                                                
-                                                <h:commandLink class="nav-link link-primary" action="#{anaEkranController.konuDegistir(konu)}" value="#{konu.konu}"/>
-                                            </h:column>
-                                            
-                                        </h:dataTable>
-                                    </h:form>
-                                </div>
-                            </div>
+                        <div class="p-4 rounded-3">
+                            <h:form>
+                                <p class="text-center border-bottom border-white" style="color: white" > Konular</p>
+                                <h:dataTable class="table" value="#{anaEkranController.konuGetir}" var="konu">
+                                    <h:column class="border-bottom-0 text-center">
+
+                                        <h:commandLink class="nav-link link-primary" action="#{anaEkranController.konuDegistir(konu)}" value="#{konu.konu}"/>
+                                    </h:column>
+
+                                </h:dataTable>
+                            </h:form>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-10 g-0">
                     <h:body class="background-color " >
                         <div class="container-fluid g-0 container-controller background-color mt-4">
                             <div class="container"><!--Header başalngıcı-->
-                                <div class=" d-flex justify-content-center">
-                                    <div class=" d-flex justify-content-center">
-                                        <div class=" shadow bg-dark p-4 rounded-3">
-                                            <iframe width="560" height="315" src="#{anaEkranController.konu.video_link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                                        </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        
+                                                <div class="col-6 d-flex justify-content-center shadow bg-dark p-4 rounded-3">
+                                                    <iframe width="560" height="315" src="#{anaEkranController.konu.video_link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                                                </div>
+                                            
+                                        <div class="col-2"></div>
                                     </div>
-
                                 </div>
                                 <div class="container mt-3 bottom-0">
                                     <div class="row d-flex justify-content-center align-items-center">
@@ -93,8 +96,7 @@
                                                             <div>
 
                                                                 <div class="social-accounts d-flex justify-content-center ">
-                                                                    <h:commandLink class="link-success" action="#{notController.create()}" value="Notu Ekle"/>
-
+                                                                    <h:commandLink class="link-success" action="#{notController.create(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" value="Notu Ekle"/>
                                                                 </div>
                                                             </div>
 
@@ -105,9 +107,9 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                                 <div class="container mt-3 bottom-0">
                                     <div class="row d-flex justify-content-center ">
@@ -117,10 +119,10 @@
                                                     <div class="box shadow bg-white p-4 rounded-3">
                                                         <h3 class="mb-4 text-center fs-1">Alınan Notlar</h3>
                                                         <h:form>
-                                                            <h:dataTable class="table table-borderless" value="" var="note">
+                                                            <h:dataTable class="table table-borderless" value="#{notController.getRead(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" var="note">
                                                                 <h:column>
                                                                     <f:facet name="header">Notlar</f:facet>
-                                                                        
+                                                                        #{note.note}
                                                                 </h:column>
                                                                 <h:column>
                                                                     <f:facet name="header">Silme</f:facet>

@@ -17,30 +17,23 @@ import util.DBConnection;
  * @author bbestamis
  */
 public class KullaniciDAO extends DBConnection {
-    public String login(Kullanici kullanici){
+    public Kullanici login(Kullanici kullanici){
+        Kullanici tmp = null;
+        List<Kullanici> list = new ArrayList<>();
+        
         try {
-            Statement st = this.getConnection().createStatement();
-
-            ResultSet rs = st.executeQuery("select * from kullanici");
-            int var = 0;
-            String isim = "";
-            while (rs.next()) {
-                
-                Kullanici tmp = new Kullanici(rs.getInt("kullanici_id"), rs.getString("isim"), rs.getString("email"), rs.getString("parola"));
-                if(tmp.getEmail().equals(kullanici.getEmail()) && tmp.getParola().equals(kullanici.getParola())){
-                    var = 1;
-                    isim = tmp.getIsim();
+            list = read();
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).getEmail().equals(kullanici.getEmail()) && list.get(i).getParola().equals(kullanici.getParola())){
+                    tmp = list.get(i);
                 }
-            }
-            if(var == 1){
-                return isim;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "yok";
+        return tmp;
     }
-
+  
     public void create(Kullanici kullanici) {
         try {
             Statement st = this.getConnection().createStatement();
