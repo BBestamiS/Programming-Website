@@ -24,13 +24,13 @@
                                         <h:commandLink class="nav-link link-light" action="mainScreen" value="Profil"/>
                                     </li>
                                     <li class="nav-item">
-                                        <h:commandLink class="nav-link link-light" action="mainScreen" value="Flutter"/>
+                                        <h:commandLink class="nav-link link-light" action="#{anaEkranController.dilDegistir(2)}" value="Flutter"/>
                                     </li>
                                     <li class="nav-item">
-                                        <h:commandLink class="nav-link link-light" action="quiz" value="Java"/>
+                                        <h:commandLink class="nav-link link-light" action="#{anaEkranController.dilDegistir(3)}" value="Java"/>
                                     </li>
                                     <li class="nav-item">
-                                        <h:commandLink class="nav-link link-light" action="note" value="Swift"/>
+                                        <h:commandLink class="nav-link link-light" action="#{anaEkranController.dilDegistir(4)}" value="Swift"/>
                                     </li>
                                 </ul>
                             </h:form>
@@ -49,17 +49,30 @@
         </div>
         <div class="container-fluid g-0" style="height: 100vh;">
             <div class="row " style="height: 100%;">
-                <div class="col-2 g-0 border-end border-danger">
-
+                <div class="col-2 g-0">
+                    <div class="col-md-12">
+                                <div class="p-4 rounded-3">
+                                    <h:form>
+                                        <p class="text-center border-bottom border-white" style="color: white" > Konular</p>
+                                        <h:dataTable class="table" value="#{anaEkranController.konuGetir}" var="konu">
+                                            <h:column class="border-bottom-0 text-center">
+                                                
+                                                <h:commandLink class="nav-link link-primary" action="#{anaEkranController.konuDegistir(konu)}" value="#{konu.konu}"/>
+                                            </h:column>
+                                            
+                                        </h:dataTable>
+                                    </h:form>
+                                </div>
+                            </div>
                 </div>
                 <div class="col-10 g-0">
-                    <h:body class="background-color" >
+                    <h:body class="background-color " >
                         <div class="container-fluid g-0 container-controller background-color mt-4">
                             <div class="container"><!--Header başalngıcı-->
                                 <div class=" d-flex justify-content-center">
-                                    <div class=" d-flex justify-content-center align-items-center">
+                                    <div class=" d-flex justify-content-center">
                                         <div class=" shadow bg-dark p-4 rounded-3">
-                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/XcnP3_mO_Ms?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                                            <iframe width="560" height="315" src="#{anaEkranController.konu.video_link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                                         </div>
                                     </div>
 
@@ -92,16 +105,22 @@
                                                 </div>
                                             </div>
                                         </section>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="container mt-3 bottom-0">
+                                    <div class="row d-flex justify-content-center ">
                                         <section class="container-fluid col-md-8 col-sm-12 mx-3 mb-4"><!--login form başlangıç-->
                                             <div class="row d-flex justify-content-center align-items-center">
                                                 <div class="col-md-12">
                                                     <div class="box shadow bg-white p-4 rounded-3">
                                                         <h3 class="mb-4 text-center fs-1">Alınan Notlar</h3>
                                                         <h:form>
-                                                            <h:dataTable class="table table-borderless" value="#{notController.read}" var="note">
+                                                            <h:dataTable class="table table-borderless" value="" var="note">
                                                                 <h:column>
                                                                     <f:facet name="header">Notlar</f:facet>
-                                                                        #{note.note}
+                                                                        
                                                                 </h:column>
                                                                 <h:column>
                                                                     <f:facet name="header">Silme</f:facet>

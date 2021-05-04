@@ -20,21 +20,21 @@ public class NotDAO extends DBConnection{
     public void create(Not note) {
         try {
             Statement st = this.getConnection().createStatement();
-            st.executeUpdate("insert into note (note) values ('" + note.getNote()+ "')"); 
+            st.executeUpdate("insert into note (note,kullanici_id,konu_id,dil_id) values ('" + note.getNote() + "','" + note.getKullanici_id() + "','" + note.getKonu_id()+ "','" + note.getDil_id()+ "')"); 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public List<Not> read() {
+    public List<Not> read(int kullanici_id , int konu_id, int dil_id) {
         List<Not> list = new ArrayList<>();
         try {
             Statement st = this.getConnection().createStatement();
 
-            ResultSet rs = st.executeQuery("select * from note");
+            ResultSet rs = st.executeQuery("select * from note where kullanici_id="+kullanici_id+" and konu_id="+konu_id+" and dil_id="+dil_id);
 
             while (rs.next()) {
-                Not tmp = new Not(rs.getInt("note_id"), rs.getString("note"));
+                Not tmp = new Not(rs.getInt("note_id"), rs.getString("note"), rs.getInt("kullanici_id"),rs.getInt("konu_id"),rs.getInt("dil_id"));
                 list.add(tmp);
             }
         } catch (Exception e) {

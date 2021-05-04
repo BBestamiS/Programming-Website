@@ -28,8 +28,8 @@ public class NotController implements Serializable{
         return "mainScreen";
     }
 
-    public List<Not> getRead() {
-        return this.getNotDAO().read();
+    public List<Not> getRead(int kullanici_id,int konu_id, int dil_id) {
+        return this.getNotDAO().read(kullanici_id,konu_id,dil_id);
     }
 
     public void delete(Not not) {
