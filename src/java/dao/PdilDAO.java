@@ -15,6 +15,16 @@ import util.DBConnection;
  * @author bbestamis
  */
 public class PdilDAO extends DBConnection{
+    private static PdilDAO dilDAO = new PdilDAO();
+    private PdilDAO() {
+    }
+
+    public static PdilDAO getDilDAO() {
+        return dilDAO;
+    }
+    
+    
+    
     public Pdil read(int dil_id) {
         Pdil dil = null;
         try {

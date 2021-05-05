@@ -25,21 +25,21 @@ import javax.inject.Named;
 @SessionScoped
 public class AnaEkranController implements Serializable{
     private Konu konu;
-    private KonuDAO konuDAO;
+    private KonuDAO konuDAO = KonuDAO.getKonuDAO();
     private Pdil dil;
-    private PdilDAO dilDAO;
+    private PdilDAO dilDAO = PdilDAO.getDilDAO();
     private Kullanici kullanici;
-    private KullaniciDAO kullaniciDAO;
+    private KullaniciDAO kullaniciDAO = KullaniciDAO.getKullaniciDAO();
     
     
     
     public List<Konu> getkonuGetir(){
-        return this.getKonuDAO().read(this.getDil().getDil_id());
+        return this.konuDAO.read(this.getDil().getDil_id());
     }
     
     public String dilDegistir(int dil_id){
         this.getDil().setDil_id(dil_id);
-        this.setKonu(this.getKonuDAO().read(this.getDil().getDil_id()).get(0));
+        this.setKonu(this.konuDAO.read(this.getDil().getDil_id()).get(0));
         return "mainScreen";
     }
     public String konuDegistir(Konu konu){
@@ -59,16 +59,7 @@ public class AnaEkranController implements Serializable{
         this.konu = konu;
     }
 
-    public KonuDAO getKonuDAO() {
-        if(this.konuDAO == null){
-            this.konuDAO = new KonuDAO();
-        }
-        return konuDAO;
-    }
-
-    public void setKonuDAO(KonuDAO konuDAO) {
-        this.konuDAO = konuDAO;
-    }
+    
 
     public Pdil getDil() {
         if(this.dil == null){
@@ -81,17 +72,7 @@ public class AnaEkranController implements Serializable{
         this.dil = dil;
     }
 
-    public PdilDAO getDilDAO() {
-        if(this.dilDAO == null){
-            this.dilDAO = new PdilDAO();
-        }
-        return dilDAO;
-    }
-
-    public void setDilDAO(PdilDAO dilDAO) {
-        this.dilDAO = dilDAO;
-    }
-
+   
     public Kullanici getKullanici() {
         if(this.kullanici == null){
             this.kullanici = new Kullanici();
@@ -103,16 +84,6 @@ public class AnaEkranController implements Serializable{
         this.kullanici = kullanici;
     }
 
-    public KullaniciDAO getKullaniciDAO() {
-        if(this.kullaniciDAO == null){
-            this.kullaniciDAO = new KullaniciDAO();
-        }
-        return kullaniciDAO;
-    }
-
-    public void setKullaniciDAO(KullaniciDAO kullaniciDAO) {
-        this.kullaniciDAO = kullaniciDAO;
-    }
     
     
 }

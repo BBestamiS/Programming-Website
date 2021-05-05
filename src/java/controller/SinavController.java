@@ -22,7 +22,7 @@ import javax.inject.Named;
 @SessionScoped
 public class SinavController implements Serializable{
     private Sinav sinav;
-    private SinavDAO sinavDAO;
+    private SinavDAO sinavDAO = SinavDAO.getSinavDAO();
     private Sonuc sonuc;
     private int control;
     private int sayfaControl;
@@ -75,7 +75,7 @@ public class SinavController implements Serializable{
     }
  
     public Sinav getSoru(){
-        this.setList(this.getSinavDAO().read());
+        this.setList(this.sinavDAO.read());
         this.getSinav().setSoru(this.getList().get(getControl()).getSoru());
         this.getSinav().setCevap_bir(this.getList().get(getControl()).getCevap_bir());
         this.getSinav().setCevap_iki(this.getList().get(getControl()).getCevap_iki());
@@ -116,16 +116,7 @@ public class SinavController implements Serializable{
         this.sinav = sinav;
     }
 
-    public SinavDAO getSinavDAO() {
-        if(this.sinavDAO == null){
-            this.sinavDAO = new SinavDAO();
-        }
-        return sinavDAO;
-    }
-
-    public void setSinavDAO(SinavDAO sinavDAO) {
-        this.sinavDAO = sinavDAO;
-    }
+   
 
     
 

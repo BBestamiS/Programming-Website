@@ -18,39 +18,46 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class NotController implements Serializable{
-    private NotDAO notDAO;
+public class NotController implements Serializable {
+
+    private NotDAO notDAO = NotDAO.getNotDAO();
     private Not not;
-    
+    private String mesaj;
+
     public String create(int kullanici_id, int konu_id, int dil_id) {
+        if (this.getNot().getNote().equals("")) {
+            mesajGoster();
+            return "mainScreen";
+        }
         this.getNot().setKullanici_id(kullanici_id);
         this.getNot().setKonu_id(konu_id);
         this.getNot().setDil_id(dil_id);
-        this.getNotDAO().create(this.getNot());
+        this.notDAO.create(this.getNot());
+        this.setNot(null);
+        mesajKaldir();
         return "mainScreen";
     }
 
-    public List<Not> getRead(int kullanici_id,int konu_id, int dil_id) {
-        return this.getNotDAO().read(kullanici_id,konu_id,dil_id);
+    public String mesajGoster() {
+        this.setMesaj("Boş Not Alınamaz!");
+        return "mainScreen";
+    }
+
+    public void mesajKaldir() {
+        this.setMesaj(null);
+    }
+
+    public List<Not> getRead(int kullanici_id, int konu_id, int dil_id) {
+        return this.notDAO.read(kullanici_id, konu_id, dil_id);
     }
 
     public void delete(Not not) {
-        this.getNotDAO().delete(not);
-    }
-
-    public NotDAO getNotDAO() {
-        if(this.notDAO == null){
-            this.notDAO = new NotDAO();
-        }
-        return notDAO;
-    }
-
-    public void setNotDAO(NotDAO notDAO) {
-        this.notDAO = notDAO;
+        this.notDAO.delete(not);
+        this.setMesaj(null);
     }
 
     public Not getNot() {
-        if(this.not == null){
+        if (this.not == null) {
             this.not = new Not();
         }
         return not;
@@ -59,9 +66,17 @@ public class NotController implements Serializable{
     public void setNot(Not not) {
         this.not = not;
     }
-    
-    public Not getNotGetir(){
+
+    public Not getNotGetir() {
         return this.getNot();
     }
-    
+
+    public String getMesaj() {
+        return mesaj;
+    }
+
+    public void setMesaj(String mesaj) {
+        this.mesaj = mesaj;
+    }
+
 }

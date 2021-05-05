@@ -17,6 +17,15 @@ import util.DBConnection;
  * @author bbestamis
  */
 public class NotDAO extends DBConnection{
+    private static NotDAO notDAO = new NotDAO();
+    private NotDAO() {
+    }
+
+    public static NotDAO getNotDAO() {
+        return notDAO;
+    }
+    
+    
     public void create(Not note) {
         try {
             Statement st = this.getConnection().createStatement();

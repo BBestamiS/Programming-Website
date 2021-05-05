@@ -21,19 +21,18 @@ import javax.inject.Named;
 public class LoginController implements Serializable {
 
     private Kullanici kullanici;
-    private KullaniciDAO kullaniciDAO;
+    private KullaniciDAO kullaniciDAO = KullaniciDAO.getKullaniciDAO();
     private String control;
     private int loginPage;
 
     public String login(){
-        setKullanici(getKullaniciDAO().login(getKullanici()));
-        System.out.println("kullanici adi = "+this.getKullanici().getIsim());
-        if(this.getKullanici() == null){
+        setKullanici(kullaniciDAO.login(getKullanici()));
+        if(this.getGelenKullanici() == null){
             mesajYazdir();
-           return "login";
+           return "index";
         }else{
             mesajKaldir();
-            return  "mainScreen";
+            return  "selection";
         }
     }
     public void mesajYazdir(){
@@ -44,19 +43,22 @@ public class LoginController implements Serializable {
     }
     public void create() {
         System.out.println(this.kullanici.getIsim());
-        this.getKullaniciDAO().create(kullanici);
+        this.kullaniciDAO.create(kullanici);
         mesajKaldir();
         gitLoginPage();
     }
 
     public List<Kullanici> getRead() {
-        return this.getKullaniciDAO().read();
+        return this.kullaniciDAO.read();
     }
 
     public void delete(Kullanici kullanici) {
-        this.getKullaniciDAO().delete(kullanici);
+        this.kullaniciDAO.delete(kullanici);
     }
-
+    
+    public Kullanici getGelenKullanici(){
+        return kullanici;
+    }
     public Kullanici getKullanici() {
         if (this.kullanici == null) {
             this.kullanici = new Kullanici();
@@ -68,16 +70,6 @@ public class LoginController implements Serializable {
         this.kullanici = kullanici;
     }
 
-    public KullaniciDAO getKullaniciDAO() {
-        if (this.kullaniciDAO == null) {
-            this.kullaniciDAO = new KullaniciDAO();
-        }
-        return kullaniciDAO;
-    }
-
-    public void setKullaniciDAO(KullaniciDAO kullaniciDAO) {
-        this.kullaniciDAO = kullaniciDAO;
-    }
 
     public String getControl() {
         

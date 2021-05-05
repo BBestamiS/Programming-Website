@@ -17,7 +17,17 @@ import util.DBConnection;
  * @author bbestamis
  */
 public class KullaniciDAO extends DBConnection {
+    private static KullaniciDAO kullaniciDAO = new KullaniciDAO();
+    private KullaniciDAO() {
+    }
+
+    public static KullaniciDAO getKullaniciDAO() {
+        return kullaniciDAO;
+    }
+    
+    
     public Kullanici login(Kullanici kullanici){
+     
         Kullanici tmp = null;
         List<Kullanici> list = new ArrayList<>();
         
@@ -25,6 +35,7 @@ public class KullaniciDAO extends DBConnection {
             list = read();
             for (int i = 0; i < list.size(); i++) {
                 if(list.get(i).getEmail().equals(kullanici.getEmail()) && list.get(i).getParola().equals(kullanici.getParola())){
+              
                     tmp = list.get(i);
                 }
             }

@@ -12,27 +12,12 @@
     <h:body class="background-color" rendered="#{sinavController.sayfaControl == 0}">
         <div class="container-fluid g-0 container-controller background-color">
             <div class="container"><!--Header başalngıcı-->
-                <header class="d-flex justify-content-center py-3 border-bottom border-success">
-                    <h:form>
-                        <ul class="nav nav-pills">
-
-                            <li class="nav-item">
-                                <h:commandLink class="nav-link link-light" action="index" value="Login Demo"/>
-                            </li>
-                            <li class="nav-item">
-                                <h:commandLink class="nav-link link-light" action="quiz" value="Quiz Demo"/>
-                            </li>
-                            <li class="nav-item">
-                                <h:commandLink class="nav-link link-light" action="note" value="Note Demo"/>
-                            </li>
-                        </ul>
-                    </h:form>
-                </header>
+                
                 <section class="container col-md-6 col-sm-12">
                         <div class="row content d-flex justify-content-center align-items-center">
                             <div class="col-md-8">
                                 <div class="box shadow p-4 rounded-3">
-                                    <h3 class="mb-4 text-center fs-1" style="color: white">Flutter - Dart Sınavı</h3>
+                                    <h3 class="mb-4 text-center fs-1" style="color: white">Flutter - Dart Sınav 1</h3>
                                     <h:form>
                                         
                                         <div class="form-group d-grid gap-2 mb-3">
@@ -57,14 +42,9 @@
                         <ul class="nav nav-pills">
 
                             <li class="nav-item">
-                                <h:commandLink class="nav-link link-light" action="#{sinavController.sayfaGecis('index')}" value="Login Demo"/>
+                                <h:commandLink class="nav-link link-light" action="#{sinavController.sayfaGecis('mainScreen')}" value="Sınavdan Çık"/>
                             </li>
-                            <li class="nav-item">
-                                <h:commandLink class="nav-link link-light" action="quiz" value="Quiz Demo"/>
-                            </li>
-                            <li class="nav-item">
-                                <h:commandLink class="nav-link link-light" action="#{sinavController.sayfaGecis('note')}" value="Note Demo"/>
-                            </li>
+                  
                         </ul>
                     </h:form>
 

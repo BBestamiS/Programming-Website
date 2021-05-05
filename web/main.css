@@ -69,3 +69,13 @@
     font-family: Okta;
     font-weight: 100;
 }
+body {
+    
+}
+
+.imgbutton{
+     background-repeat: no-repeat;
+     background-size: cover;
+     height: 250px;width: 250px;
+     background-color: transparent;
+}

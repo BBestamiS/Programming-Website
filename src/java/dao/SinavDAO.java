@@ -18,6 +18,15 @@ import util.DBConnection;
  * @author bbestamis
  */
 public class SinavDAO extends DBConnection {
+    private static SinavDAO sinavDAO = new SinavDAO();
+    private SinavDAO() {
+    }
+
+    public static SinavDAO getSinavDAO() {
+        return sinavDAO;
+    }
+    
+    
     public List<Sinav> read() {
         List<Sinav> list = new ArrayList<>();
         try {

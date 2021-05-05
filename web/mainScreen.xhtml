@@ -7,144 +7,221 @@
         <title>Facelet Title</title>
         <link href="assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="main.css" />
-
     </h:head>
-    <h:body  class="background-color">
-        <div class="container-fluid g-0 container-controller background-color">
-            <div class="row">
-                <div class="col-2">
+    <h:body>
 
-                </div>
-                <div class="col-8 container-fluid"><!--Header başalngıcı-->
-                    <header class="py-3 border-bottom border-success">
-                        <div class="d-flex justify-content-center">
-                            <h:form>
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item">
-                                        <h:commandLink class="nav-link link-light" action="mainScreen" value="Profil"/>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h:commandLink class="nav-link link-light" action="#{anaEkranController.dilDegistir(2)}" value="Flutter"/>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h:commandLink class="nav-link link-light" action="#{anaEkranController.dilDegistir(3)}" value="Java"/>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h:commandLink class="nav-link link-light" action="#{anaEkranController.dilDegistir(4)}" value="Swift"/>
-                                    </li>
-                                </ul>
-                            </h:form>
-                        </div>
-                    </header>
-                </div><!--Header bitiş-->
-                <div class="col-2 py-3 ms-0">
-                    <div class="d-flex justify-content-center">
-                        <h:form>
-                            <h:commandLink class="nav-link link-danger" action="login" value="Çıkış Yap"/>
-                        </h:form>
-
-                    </div>
-                </div>
+        <div class="row d-lg-none d-md-none">
+            <div class="col d-flex justify-content-start ">
+                <h:form>
+                    <h:commandLink class="nav-link link-primary" action="index" value="Profil"/>
+                </h:form>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <h:form>
+                    <h:commandLink class="nav-link link-danger" action="index" value="Çıkış Yap"/>
+                </h:form>
             </div>
         </div>
-        <div class="container-fluid g-0" style="height: 100vh;">
-            <div class="row " style="height: 100%;">
-                <div class="col-2 g-0">
-                    <div class="col-md-12">
-                        <div class="p-4 rounded-3">
-                            <h:form>
-                                <p class="text-center border-bottom border-white" style="color: white" > Konular</p>
-                                <h:dataTable class="table" value="#{anaEkranController.konuGetir}" var="konu">
-                                    <h:column class="border-bottom-0 text-center">
+        <div class="row d-lg-none d-md-none">
+            <div class="col border-bottom border-danger d-flex justify-content-center">
+                <h:form>
+                    <ul class="nav nav-pills">
 
-                                        <h:commandLink class="nav-link link-primary" action="#{anaEkranController.konuDegistir(konu)}" value="#{konu.konu}"/>
-                                    </h:column>
+                        <li class="nav-item">
+                            <h:commandLink class="nav-link link-dark" action="#{anaEkranController.dilDegistir(2)}" value="Flutter"/>
+                        </li>
+                        <li class="nav-item">
+                            <h:commandLink class="nav-link link-dark" action="#{anaEkranController.dilDegistir(3)}" value="Java"/>
+                        </li>
+                        <li class="nav-item">
+                            <h:commandLink class="nav-link link-dark" action="#{anaEkranController.dilDegistir(4)}" value="Swift"/>
+                        </li>
+                    </ul>
+                </h:form>
+            </div>
+        </div>
+        <div class=" row  d-none  d-lg-flex d-md-flex align-items-center " >
+            <div class="text-center col-2">
+                <h:form>
+                    <h:commandLink class="nav-link link-primary" action="index" value="Profil"/>
+                </h:form>
+            </div>
+            <div class="col d-flex justify-content-center  border-bottom border-success">
+                <h:form>
+                    <ul class="nav nav-pills p-3">
 
-                                </h:dataTable>
-                            </h:form>
+                        <li class="nav-item">
+                            <h:commandLink class="nav-link link-dark " action="#{anaEkranController.dilDegistir(2)}" value="Flutter"/>
+                        </li>
+                        <li class="nav-item">
+                            <h:commandLink class="nav-link link-dark" action="#{anaEkranController.dilDegistir(4)}" value="Swift"/>
+                        </li>
+                        <li class="nav-item">
+                            <h:commandLink class="nav-link link-dark" action="#{anaEkranController.dilDegistir(3)}" value="Java"/>
+                        </li>
+                    </ul>
+                </h:form>
+            </div>
+            <div class="text-center col-2">
+                <h:form>
+                    <h:commandLink class="nav-link link-danger" action="index" value="Çıkış Yap"/>
+                </h:form>
+            </div>
+        </div>
+        <div class="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
+            <div class="row">
+                <div class="col-auto ms-2 mt-3">
+                    <h:form>
+                        <p class="text-center border-bottom border-dark m-0" style="color: black" > Konular</p>
+                        <h:dataTable class="table" value="#{anaEkranController.konuGetir}" var="konu">
+                            <h:column class="border-bottom-0 text-center">
+
+                                <h:commandLink class="nav-link link-success" action="#{anaEkranController.konuDegistir(konu)}" value="#{konu.konu}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+                <div class="col">
+                    <div style="margin: 0px auto; width: 75%" class=" bg-dark shadow rounded-3 mt-4 p-0">
+                        <div class="p-3">
+                            <div class=" videoWrapper">
+                                <iframe width="560" height="315" src="#{anaEkranController.konu.video_link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-10 g-0">
-                    <h:body class="background-color " >
-                        <div class="container-fluid g-0 container-controller background-color mt-4">
-                            <div class="container"><!--Header başalngıcı-->
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-2"></div>
-                                        
-                                                <div class="col-6 d-flex justify-content-center shadow bg-dark p-4 rounded-3">
-                                                    <iframe width="560" height="315" src="#{anaEkranController.konu.video_link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                                                </div>
-                                            
-                                        <div class="col-2"></div>
+                    <div>
+                        <div style="width: 50%; margin: 0px auto;" class="mt-4 mb-4">
+                            <div class="box shadow bg-white p-3 rounded-3">
+                                <h3 class="mb-4 text-center fs-3">Not Ekle</h3>
+                                <h:form>
+                                    <div class="form-group mb-3">
+                                        <h:inputTextarea class="form-control" value="#{notController.notGetir.note}" style="resize: none; height: 150px" />
                                     </div>
-                                </div>
-                                <div class="container mt-3 bottom-0">
-                                    <div class="row d-flex justify-content-center align-items-center">
-
-                                        <section class="container-fluid col-md-6 col-sm-12"><!--login form başlangıç-->
-                                            <div class="row yuk d-flex justify-content-center align-items-center">
-                                                <div class="col-md-10">
-                                                    <div class="box shadow bg-white p-4 rounded-3">
-                                                        <h3 class="mb-4 text-center fs-3">Not Ekle</h3>
-                                                        <h:form>
-                                                            <div class="form-group mb-3">
-
-                                                                <h:inputTextarea class="form-control" value="#{notController.notGetir.note}" style="resize: none; height: 150px" />
-                                                            </div>
-                                                            <div>
-
-                                                                <div class="social-accounts d-flex justify-content-center ">
-                                                                    <h:commandLink class="link-success" action="#{notController.create(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" value="Notu Ekle"/>
-                                                                </div>
-                                                            </div>
-
-                                                        </h:form>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </section>
-
+                                    <div class="text-center">
+                                        <h:outputText style="color: red" rendered="#{notController.notGetir.note != null}" value="#{notController.mesaj}"/>
                                     </div>
 
-                                </div>
-                                <div class="container mt-3 bottom-0">
-                                    <div class="row d-flex justify-content-center ">
-                                        <section class="container-fluid col-md-8 col-sm-12 mx-3 mb-4"><!--login form başlangıç-->
-                                            <div class="row d-flex justify-content-center align-items-center">
-                                                <div class="col-md-12">
-                                                    <div class="box shadow bg-white p-4 rounded-3">
-                                                        <h3 class="mb-4 text-center fs-1">Alınan Notlar</h3>
-                                                        <h:form>
-                                                            <h:dataTable class="table table-borderless" value="#{notController.getRead(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" var="note">
-                                                                <h:column>
-                                                                    <f:facet name="header">Notlar</f:facet>
-                                                                        #{note.note}
-                                                                </h:column>
-                                                                <h:column>
-                                                                    <f:facet name="header">Silme</f:facet>
-                                                                    <h:commandButton class="btn btn-danger btn-lg border-0 rounded-3 " action="#{notController.delete(note)}" value="Sil"/>
-                                                                </h:column>
-                                                            </h:dataTable>
-                                                        </h:form>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </section>
+                                    <div>
+                                        <div class="social-accounts d-flex justify-content-center ">
+                                            <h:commandLink class="link-success" action="#{notController.create(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" value="Notu Ekle"/>
+                                        </div>
                                     </div>
-                                </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="width: 70%;margin: 0px auto;" class="mb-4">
+                            <div class="box shadow bg-white p-4 rounded-3">
+                                <h3 class="mb-4 text-center fs-2">Alınan Notlar</h3>
+                                <h:form>
+                                    <h:dataTable class="table align-middle table-borderless" value="#{notController.getRead(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" var="note">
+                                        <h:column>
+
+                                            #{note.note}
+                                        </h:column>
+                                        <h:column class="text-end">
+
+                                            <h:commandButton class="btn btn-danger btn-lg border-0 rounded-3 " action="#{notController.delete(note)}" value="Sil"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:form>
                             </div>
                         </div>
 
-                    </h:body>
+                    </div>
+                </div>
+                <div class="col-auto me-2 mt-3">
+                    <h:form>
+                        <p class="text-center border-bottom border-dark m-0" style="color: black" >Sınavlar</p>
+                        <ul class="list-group">
+                            <li class="border-0 list-group-item">
+                                <h:commandLink class="nav-link link-success" action="quiz" value="Sınav 1"/>
+                            </li>
+                        </ul>
+                    </h:form>
                 </div>
             </div>
         </div>
+        <div class="d-md-none d-lg-none d-xl-none d-xxl-none">
+            <div style="margin: 0px auto;" class=" bg-dark shadow rounded-3 mt-4 p-0">
+                <div class="p-3">
+                    <div class=" videoWrapper">
+                        <iframe width="560" height="315" src="#{anaEkranController.konu.video_link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="width: 75%; margin: 0px auto;" class="mt-4 mb-4">
+                    <div class="box shadow bg-white p-3 rounded-3">
+                        <h3 class="mb-4 text-center fs-3">Not Ekle</h3>
+                        <h:form>
+                            <div class="form-group mb-3">
+                                <h:inputTextarea class="form-control" value="#{notController.notGetir.note}" style="resize: none; height: 150px" />
+                            </div>
+                            <div class="text-center">
+                                <h:outputText style="color: red" rendered="#{notController.notGetir.note != null}" value="#{notController.mesaj}"/>
+                            </div>
+
+                            <div>
+                                <div class="social-accounts d-flex justify-content-center ">
+                                    <h:commandLink class="link-success" action="#{notController.create(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" value="Notu Ekle"/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="width: 100%;margin: 0px auto;" class="mb-4">
+                    <div class="box shadow bg-white p-4 rounded-3">
+                        <h3 class="mb-4 text-center fs-2">Alınan Notlar</h3>
+                        <h:form>
+                            <h:dataTable class="table align-middle table-borderless" value="#{notController.getRead(loginController.kullanici.kullanici_id, anaEkranController.konu.konu_id, anaEkranController.dil.dil_id)}" var="note">
+                                <h:column>
+
+                                    #{note.note}
+                                </h:column>
+                                <h:column class="text-end">
+
+                                    <h:commandButton class="btn btn-danger btn-lg border-0 rounded-3 " action="#{notController.delete(note)}" value="Sil"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h:form>
+                    <p class="text-center border-bottom border-dark m-0" style="color: black" > Konular</p>
+                    <h:dataTable class="table" value="#{anaEkranController.konuGetir}" var="konu">
+                        <h:column class="border-bottom-0 text-center">
+
+                            <h:commandLink class="nav-link link-success" action="#{anaEkranController.konuDegistir(konu)}" value="#{konu.konu}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+            <div>
+
+                <h:form>
+                    <p class="text-center border-bottom border-dark m-0" style="color: black" >Sınavlar</p>
+                    <ul class="nav nav-pills mt-2">
+                        <div class="text-center" style='width: 100%'>
+                            <li class="nav-item">
+
+                                <h:commandLink class="nav-link link-success" action="quiz" value="Sınav 1"/>
+                            </li>
+                        </div>
+
+
+
+                    </ul>
+                </h:form>
+
+            </div>
+        </div>
+
     </h:body>
 </html>
 

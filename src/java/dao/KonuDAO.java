@@ -17,6 +17,16 @@ import util.DBConnection;
  * @author bbestamis
  */
 public class KonuDAO extends DBConnection{
+    
+    private static KonuDAO konuDAO = new KonuDAO();
+    
+    private KonuDAO() {
+    }
+
+    public static KonuDAO getKonuDAO() {
+        return konuDAO;
+    }
+       
     public List<Konu> read(int dil_id) {
         List<Konu> list = new ArrayList<>();
         try {
