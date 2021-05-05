@@ -12,7 +12,22 @@ import java.sql.DriverManager;
  *
  * @author bbestamis
  */
-public abstract class DBConnection {
+public class DBConnection {
+    private static DBConnection dBConnection = null;
+    private DBConnection() {
+    }
+
+    public static DBConnection getdBConnection() {
+        if(dBConnection == null){
+           synchronized (DBConnection.class){
+               if(dBConnection == null){
+                   dBConnection = new DBConnection();
+               }
+           }
+        }
+        return dBConnection;
+    }
+    
     private Connection connection;
     
     public Connection connect(){

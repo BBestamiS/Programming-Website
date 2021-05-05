@@ -17,20 +17,28 @@ import util.DBConnection;
  *
  * @author bbestamis
  */
-public class SinavDAO extends DBConnection {
-    private static SinavDAO sinavDAO = new SinavDAO();
+public class SinavDAO{
+    private static SinavDAO sinavDAO = null;
     private SinavDAO() {
     }
 
     public static SinavDAO getSinavDAO() {
+        if(sinavDAO == null){
+           synchronized (SinavDAO.class){
+               if(sinavDAO == null){
+                   sinavDAO = new SinavDAO();
+               }
+           }
+        }
         return sinavDAO;
     }
     
-    
+    DBConnection dBConnection = util.DBConnection.getdBConnection();
     public List<Sinav> read() {
+        
         List<Sinav> list = new ArrayList<>();
         try {
-            Statement st = this.getConnection().createStatement();
+            Statement st = dBConnection.getConnection().createStatement();
 
             ResultSet rs = st.executeQuery("select * from soru");
 

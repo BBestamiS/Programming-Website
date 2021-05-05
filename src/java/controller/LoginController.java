@@ -52,8 +52,9 @@ public class LoginController implements Serializable {
         return this.kullaniciDAO.read();
     }
 
-    public void delete(Kullanici kullanici) {
+    public String delete(Kullanici kullanici) {
         this.kullaniciDAO.delete(kullanici);
+        return "index";
     }
     
     public Kullanici getGelenKullanici(){

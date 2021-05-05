@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="main.css" />
+    </h:head>
+    <h:body>
+        <div>
+            <div class='row'>
+                <div class='col-auto'>
+                    <div class="d-flex align-items-center" style='height: 100%'>
+                        <h:form>
+                            <h:commandButton action='homePage' class='border-0 backButton' style="background-image: url('https://img.icons8.com/pastel-glyph/64/000000/back.png')" />
+                        </h:form>
+                    </div>
+                </div>
+                <div class='col-6'>
+                    <div>
+                        <div>
+                            <h1 class='link-warning d-inline user-select-none' style='font-size: 5rem'>#{loginController.kullanici.isim}</h1>
+                            <p class='d-inline user-select-none'>Hoşgeldin</p>
+                        </div>
+                    </div>
+                </div>
+                <div class='col'>
+                    <div class="d-flex justify-content-end align-items-center" style='height: 100%; width: 100%'>
+                        <h:form>
+                            <h:commandLink action="#{loginController.delete(loginController.kullanici)}" style="" class="nav-link link-danger" value='Hesabı Sil'/>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <div class='mt-5'>
+                <div class="row ">
+                    <div class='col'>
+                        <div class="d-flex justify-content-center">
+                            <div style='width: 60%'>
+                                <div class="box shadow bg-white p-4 rounded-3">
+                                    <h3 class="mb-4 text-center fs-1">Aldığın Tüm Notlar</h3>
+                                    <h:form>
+                                        <h:dataTable class="table table-borderless" value="#{notController.getReadKullanici(loginController.kullanici.kullanici_id)}" var="note">
+                                            <h:column>
+                                                #{note.note}
+                                            </h:column>
+                                            <h:column>
+                                                <div class='d-flex justify-content-end'>
+                                                    <h:commandButton class="btn btn-danger btn-lg border-0 rounded-3 " action="#{notController.delete(note)}" value="Sil"/>
+                                                </div>
+
+                                            </h:column>
+                                        </h:dataTable>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class='mt-4'>
+                <div class="d-flex justify-content-center">
+                    <h1 class='d-block'>Sınav Sonuçların</h1>
+                </div>
+                <div class='row mb-4'>
+                    <div class='col'>
+                        <div class='d-flex justify-content-center'>
+                            <h:form>
+                                <ul class='nav nav-pills'>
+                                    <li>
+                                        <h:commandLink action='#{sinavController.flutterbar()}' class='nav-link link-primary' value="Flutter"/>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action='#{sinavController.swiftbar()}' class='nav-link link-primary' value="Swift"/>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action='#{sinavController.javabar()}' class='nav-link link-primary' value="Java"/>
+                                    </li>
+                                </ul>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class='row'>
+                        <div class='col-12'>
+                            <div class="d-flex justify-content-center">
+                                <div style='width:  70%'>
+                                    <div class='row'>
+                                        <div class="col-auto">
+                                            <div class='d-flex justify-content-center'>
+                                                <p>Test 1</p>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="#{sinavController.barBir}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-12'>
+                            <div class="d-flex justify-content-center">
+                                <div style='width:  70%'>
+                                    <div class='row'>
+                                        <div class="col-auto">
+                                            <div class='d-flex justify-content-center'>
+                                                <p>Test 1</p>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="#{sinavController.barIki}" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-12'>
+                            <div class="d-flex justify-content-center">
+                                <div style='width:  70%'>
+                                    <div class='row'>
+                                        <div class="col-auto">
+                                            <div class='d-flex justify-content-center'>
+                                                <p>Test 1</p>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="#{sinavController.barUc}" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

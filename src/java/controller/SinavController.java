@@ -29,6 +29,10 @@ public class SinavController implements Serializable{
     private List<Sinav> list;
     private List<String> cevapList;
     private List<Sonuc> sonucList;
+    private String bar1;
+    private String bar2;
+    private String bar3;
+    private int barControl;
     
     public String bitir(){
         this.getSonucList().clear();
@@ -73,7 +77,46 @@ public class SinavController implements Serializable{
         
         return "result";
     }
- 
+    public String flutterbar(){
+        this.setBarControl(1);
+        this.setBar1("background-color: #198754; width: "+30+"%");
+        this.setBar2("background-color: #0dcaf0; width: "+60+"%");
+        this.setBar3("background-color: #ffc107; width: "+90+"%");
+        return "profile";
+    }
+    public String swiftbar(){
+        this.setBarControl(1);
+        this.setBar1("background-color: #ffc107; width: "+90+"%");
+        this.setBar2("background-color: #198754; width: "+30+"%");
+        this.setBar3("background-color: #0dcaf0; width: "+60+"%");
+        return "profile";
+    }
+    public String javabar(){
+        this.setBarControl(1);
+        this.setBar1("background-color: #0dcaf0; width: "+60+"%");
+        this.setBar2("background-color: #ffc107; width: "+90+"%");
+        this.setBar3("background-color: #198754; width: "+30+"%");
+        return "profile";
+    }
+    public String getBarBir(){
+        if(this.getBarControl() == 0){
+            return "background-color: #198754; width: "+30+"%";
+        }
+        return this.getBar1();
+    }
+     public String getBarIki(){
+         if(this.getBarControl() == 0){
+            return "background-color: #0dcaf0; width: "+60+"%";
+        }
+        return this.getBar2();
+    }
+      public String getBarUc(){
+          if(this.getBarControl() == 0){
+            return "background-color: #ffc107; width: "+90+"%";
+        }
+        return this.getBar3();
+    }
+    
     public Sinav getSoru(){
         this.setList(this.sinavDAO.read());
         this.getSinav().setSoru(this.getList().get(getControl()).getSoru());
@@ -209,6 +252,46 @@ public class SinavController implements Serializable{
 
     public void setSayfaControl(int sayfaControl) {
         this.sayfaControl = sayfaControl;
+    }
+
+    public SinavDAO getSinavDAO() {
+        return sinavDAO;
+    }
+
+    public void setSinavDAO(SinavDAO sinavDAO) {
+        this.sinavDAO = sinavDAO;
+    }
+
+    public String getBar1() {
+        return bar1;
+    }
+
+    public void setBar1(String bar1) {
+        this.bar1 = bar1;
+    }
+
+    public String getBar2() {
+        return bar2;
+    }
+
+    public void setBar2(String bar2) {
+        this.bar2 = bar2;
+    }
+
+    public String getBar3() {
+        return bar3;
+    }
+
+    public void setBar3(String bar3) {
+        this.bar3 = bar3;
+    }
+
+    public int getBarControl() {
+        return barControl;
+    }
+
+    public void setBarControl(int barControl) {
+        this.barControl = barControl;
     }
     
 }

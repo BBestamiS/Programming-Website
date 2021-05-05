@@ -23,33 +23,32 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class AnaEkranController implements Serializable{
+public class AnaEkranController implements Serializable {
+
     private Konu konu;
     private KonuDAO konuDAO = KonuDAO.getKonuDAO();
     private Pdil dil;
     private PdilDAO dilDAO = PdilDAO.getDilDAO();
     private Kullanici kullanici;
     private KullaniciDAO kullaniciDAO = KullaniciDAO.getKullaniciDAO();
-    
-    
-    
-    public List<Konu> getkonuGetir(){
+
+    public List<Konu> getkonuGetir() {
         return this.konuDAO.read(this.getDil().getDil_id());
     }
-    
-    public String dilDegistir(int dil_id){
+
+    public String dilDegistir(int dil_id) {
         this.getDil().setDil_id(dil_id);
         this.setKonu(this.konuDAO.read(this.getDil().getDil_id()).get(0));
-        return "mainScreen";
+        return "homePage";
     }
-    public String konuDegistir(Konu konu){
+
+    public String konuDegistir(Konu konu) {
         this.setKonu(konu);
-        return "mainScreen";
+        return "homePage";
     }
-    
-   
+
     public Konu getKonu() {
-        if(this.konu == null){
+        if (this.konu == null) {
             this.konu = new Konu();
         }
         return konu;
@@ -59,10 +58,8 @@ public class AnaEkranController implements Serializable{
         this.konu = konu;
     }
 
-    
-
     public Pdil getDil() {
-        if(this.dil == null){
+        if (this.dil == null) {
             this.dil = new Pdil();
         }
         return dil;
@@ -72,9 +69,8 @@ public class AnaEkranController implements Serializable{
         this.dil = dil;
     }
 
-   
     public Kullanici getKullanici() {
-        if(this.kullanici == null){
+        if (this.kullanici == null) {
             this.kullanici = new Kullanici();
         }
         return kullanici;
@@ -84,6 +80,4 @@ public class AnaEkranController implements Serializable{
         this.kullanici = kullanici;
     }
 
-    
-    
 }

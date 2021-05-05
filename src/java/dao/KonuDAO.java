@@ -16,23 +16,31 @@ import util.DBConnection;
  *
  * @author bbestamis
  */
-public class KonuDAO extends DBConnection{
-    
-    private static KonuDAO konuDAO = new KonuDAO();
-    
+public class KonuDAO {
+
+    private static KonuDAO konuDAO = null;
+
     private KonuDAO() {
     }
 
     public static KonuDAO getKonuDAO() {
+        if (konuDAO == null) {
+            synchronized (KonuDAO.class) {
+                if (konuDAO == null) {
+                    konuDAO = new KonuDAO();
+                }
+            }
+        }
         return konuDAO;
     }
-       
+    DBConnection dBConnection = util.DBConnection.getdBConnection();
+
     public List<Konu> read(int dil_id) {
         List<Konu> list = new ArrayList<>();
         try {
-            Statement st = this.getConnection().createStatement();
+            Statement st = dBConnection.getConnection().createStatement();
 
-            ResultSet rs = st.executeQuery("select * from konu where dil_id="+dil_id);
+            ResultSet rs = st.executeQuery("select * from konu where dil_id=" + dil_id);
             while (rs.next()) {
                 Konu tmp = new Konu(rs.getInt("konu_id"), rs.getString("konu"), rs.getString("video_link"), rs.getInt("dil_id"));
                 list.add(tmp);

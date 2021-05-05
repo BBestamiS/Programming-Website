@@ -16,16 +16,23 @@ import util.DBConnection;
  *
  * @author bbestamis
  */
-public class KullaniciDAO extends DBConnection {
-    private static KullaniciDAO kullaniciDAO = new KullaniciDAO();
+public class KullaniciDAO{
+    private static KullaniciDAO kullaniciDAO = null;
     private KullaniciDAO() {
     }
 
     public static KullaniciDAO getKullaniciDAO() {
+         if(kullaniciDAO == null){
+           synchronized (KullaniciDAO.class){
+               if(kullaniciDAO == null){
+                   kullaniciDAO = new KullaniciDAO();
+               }
+           }
+        }
         return kullaniciDAO;
     }
     
-    
+    DBConnection dBConnection = util.DBConnection.getdBConnection();
     public Kullanici login(Kullanici kullanici){
      
         Kullanici tmp = null;
@@ -47,7 +54,7 @@ public class KullaniciDAO extends DBConnection {
   
     public void create(Kullanici kullanici) {
         try {
-            Statement st = this.getConnection().createStatement();
+            Statement st = dBConnection.getConnection().createStatement();
             st.executeUpdate("insert into kullanici (isim,email,parola) values ('" + kullanici.getIsim() + "','" + kullanici.getEmail() + "','" + kullanici.getParola() + "')");
             System.out.println("ekleme başarılı"+kullanici.getIsim()+kullanici.getEmail()+kullanici.getParola());
         } catch (Exception e) {
@@ -59,7 +66,7 @@ public class KullaniciDAO extends DBConnection {
     public List<Kullanici> read() {
         List<Kullanici> list = new ArrayList<>();
         try {
-            Statement st = this.getConnection().createStatement();
+            Statement st = dBConnection.getConnection().createStatement();
 
             ResultSet rs = st.executeQuery("select * from kullanici");
 
@@ -75,7 +82,7 @@ public class KullaniciDAO extends DBConnection {
 
     public void delete(Kullanici kullanici) {
         try {
-            Statement st = this.getConnection().createStatement();
+            Statement st = dBConnection.getConnection().createStatement();
             st.executeUpdate("delete from kullanici where kullanici_id=" + kullanici.getKullanici_id());
         } catch (Exception e) {
             System.out.println(e.getMessage());

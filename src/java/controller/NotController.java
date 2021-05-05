@@ -27,7 +27,7 @@ public class NotController implements Serializable {
     public String create(int kullanici_id, int konu_id, int dil_id) {
         if (this.getNot().getNote().equals("")) {
             mesajGoster();
-            return "mainScreen";
+            return "homePage";
         }
         this.getNot().setKullanici_id(kullanici_id);
         this.getNot().setKonu_id(konu_id);
@@ -35,18 +35,22 @@ public class NotController implements Serializable {
         this.notDAO.create(this.getNot());
         this.setNot(null);
         mesajKaldir();
-        return "mainScreen";
+        return "homePage";
     }
 
     public String mesajGoster() {
         this.setMesaj("Boş Not Alınamaz!");
-        return "mainScreen";
+        return "homePage";
     }
 
     public void mesajKaldir() {
         this.setMesaj(null);
     }
-
+    
+    public List<Not> getReadKullanici(int kullanici_id) {
+        return this.notDAO.read(kullanici_id);
+    }
+    
     public List<Not> getRead(int kullanici_id, int konu_id, int dil_id) {
         return this.notDAO.read(kullanici_id, konu_id, dil_id);
     }
