@@ -18,7 +18,7 @@ import util.DBConnection;
  */
 public class KullaniciDAO{
     private static KullaniciDAO kullaniciDAO = null;
-    private KullaniciDAO() {
+    public KullaniciDAO() {
     }
 
     public static KullaniciDAO getKullaniciDAO() {
@@ -88,4 +88,6 @@ public class KullaniciDAO{
             System.out.println(e.getMessage());
         }
     }
+
+   
 }
