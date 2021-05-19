@@ -37,7 +37,16 @@ public class NotController implements Serializable {
         mesajKaldir();
         return "homePage";
     }
-
+    public String ProgramlamaDili(int id){
+        if(id == 2){
+            return "Flutter";
+        }else if(id == 3){
+            return "Java";
+        }else{
+            return "Swift";
+        }
+    }
+    
     public String mesajGoster() {
         this.setMesaj("Boş Not Alınamaz!");
         return "homePage";

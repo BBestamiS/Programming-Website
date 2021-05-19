@@ -63,7 +63,6 @@ public class KullaniciDAOStubTest {
         System.out.println("--------------");
         System.out.println("login Yanlış");
         Kullanici kullanici = kullanici2;
-        Kullanici expResult = null;
         Kullanici result = kullaniciDAOStub.login(kullanici);
         assertNull(result);
     }

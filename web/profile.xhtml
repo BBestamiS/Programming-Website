@@ -33,33 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class='mt-5'>
-                <div class="row ">
-                    <div class='col'>
-                        <div class="d-flex justify-content-center">
-                            <div style='width: 60%'>
-                                <div class="box shadow bg-white p-4 rounded-3">
-                                    <h3 class="mb-4 text-center fs-1">Aldığın Tüm Notlar</h3>
-                                    <h:form>
-                                        <h:dataTable class="table table-borderless" value="#{notController.getReadKullanici(loginController.kullanici.kullanici_id)}" var="note">
-                                            <h:column>
-                                                #{note.note}
-                                            </h:column>
-                                            <h:column>
-                                                <div class='d-flex justify-content-end'>
-                                                    <h:commandButton class="btn btn-danger btn-lg border-0 rounded-3 " action="#{notController.delete(note)}" value="Sil"/>
-                                                </div>
 
-                                            </h:column>
-                                        </h:dataTable>
-                                    </h:form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
             <div class='mt-4'>
                 <div class="d-flex justify-content-center">
@@ -110,7 +84,7 @@
                                     <div class='row'>
                                         <div class="col-auto">
                                             <div class='d-flex justify-content-center'>
-                                                <p>Test 1</p>
+                                                <p>Test 2</p>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -128,7 +102,7 @@
                                     <div class='row'>
                                         <div class="col-auto">
                                             <div class='d-flex justify-content-center'>
-                                                <p>Test 1</p>
+                                                <p>Test 3</p>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -139,6 +113,51 @@
                                     </div> 
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" mb-4">
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex justify-content-center">
+                                <h:form>
+                                    <h:commandLink class="nav-link link-primary fs-5" value="Son Kaldığın Konuya Git" />
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='mt-4 mb-5'>
+                    <div class="row ">
+                        <div class='col'>
+                            <div class="d-flex justify-content-center">
+                                <div style='width: 60%'>
+                                    <div class="box shadow bg-white p-4 rounded-3">
+                                        <h3 class="mb-4 text-center fs-1">Aldığın Tüm Notlar</h3>
+                                        <h:form>
+                                            <h:dataTable class="table table-borderless" value="#{notController.getReadKullanici(loginController.kullanici.kullanici_id)}" var="note">
+
+                                                <h:column>
+                                                    #{notController.ProgramlamaDili(note.dil_id)}
+                                                </h:column>
+                                                <h:column>
+                                                    #{anaEkranController.Konu(note.konu_id)}
+                                                </h:column>
+                                                <h:column>
+                                                    #{note.note}
+                                                </h:column>
+                                                <h:column>
+                                                    <div class='d-flex justify-content-end'>
+                                                        <h:commandButton class="btn btn-danger btn-lg border-0 rounded-3 " action="#{notController.delete(note)}" value="Sil"/>
+                                                    </div>
+
+                                                </h:column>
+                                            </h:dataTable>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

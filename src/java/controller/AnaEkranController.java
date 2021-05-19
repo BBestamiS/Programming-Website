@@ -31,9 +31,18 @@ public class AnaEkranController implements Serializable {
     private PdilDAO dilDAO = PdilDAO.getDilDAO();
     private Kullanici kullanici;
     private KullaniciDAO kullaniciDAO = KullaniciDAO.getKullaniciDAO();
+    private List<Konu> konularList;
 
     public List<Konu> getkonuGetir() {
+         if(this.konularList == null){
+            this.konularList = new ArrayList<>();
+            this.konularList = this.konuDAO.read();
+        }
         return this.konuDAO.read(this.getDil().getDil_id());
+    }
+    public List<Konu> getkonularıGetir() {
+       
+        return this.konularList;
     }
 
     public String dilDegistir(int dil_id) {
@@ -52,6 +61,14 @@ public class AnaEkranController implements Serializable {
             this.konu = new Konu();
         }
         return konu;
+    }
+    public String Konu(int id){
+        for (int i = 0; i < this.konularList.size(); i++) {
+            if(id == this.konularList.get(i).getKonu_id()){
+                return this.konularList.get(i).getKonu();
+            }
+        }
+        return "";
     }
 
     public void setKonu(Konu konu) {

@@ -50,4 +50,19 @@ public class KonuDAO {
         }
         return list;
     }
+    public List<Konu> read() {
+        List<Konu> list = new ArrayList<>();
+        try {
+            Statement st = dBConnection.getConnection().createStatement();
+
+            ResultSet rs = st.executeQuery("select * from konu");
+            while (rs.next()) {
+                Konu tmp = new Konu(rs.getInt("konu_id"), rs.getString("konu"), rs.getString("video_link"), rs.getInt("dil_id"));
+                list.add(tmp);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
 }
