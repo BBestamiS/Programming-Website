@@ -5,8 +5,11 @@
  */
 package controller;
 
-import dao.SinavDAO;
+import dao.SonucDAO;
+import dao.SoruDAO;
+import entity.Kullanici;
 import entity.Sinav;
+import entity.Soru;
 import entity.Sonuc;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,12 +25,13 @@ import javax.inject.Named;
 @SessionScoped
 public class SinavController implements Serializable {
 
-    private Sinav sinav;
-    private SinavDAO sinavDAO = SinavDAO.getSinavDAO();
+    private Soru sinav;
+    private SoruDAO sinavDAO = SoruDAO.getSinavDAO();
     private Sonuc sonuc;
+    private SonucDAO sonucDAO;
     private int control;
     private int sayfaControl;
-    private List<Sinav> list;
+    private List<Soru> list;
     private List<String> cevapList;
     private List<Sonuc> sonucList;
     private SecenekAdapter secenekAdapter;
@@ -35,9 +39,15 @@ public class SinavController implements Serializable {
     private String bar1;
     private String bar2;
     private String bar3;
+    private Kullanici kullanici;
     private int barControl;
+    private int sinavId;
+    private int dogruSayisi;
+    private int puan;
 
-    public String bitir() {
+    public String bitir(Kullanici kullanici) {
+        this.setKullanici(kullanici);
+        this.setDogruSayisi(0);
         this.getSonucList().clear();
         String isaretlenmisCevap;
         String dogruCevap;
@@ -53,63 +63,76 @@ public class SinavController implements Serializable {
             if (this.getCevapList().get(i + 1).equals(this.getList().get(i).getCevap_dogru())) {
                 Sonuc tmp = new Sonuc(this.getList().get(i).getSoru(), dogruCevap, isaretlenmisCevap, "Doğru");
                 this.getSonucList().add(tmp);
+                this.setDogruSayisi(dogruSayisi + 1);
             } else {
                 Sonuc tmp = new Sonuc(this.getList().get(i).getSoru(), dogruCevap, isaretlenmisCevap, "Yanlış");
                 this.getSonucList().add(tmp);
             }
         }
+        puanHesapla();
+        this.getSonucDAO().create(getPuan(), sinavId, this.getKullanici().getKullanici_id());
         temizle();
 
         return "result";
     }
-
+    public String KullaniciEkle(Kullanici kullanici){
+        System.out.println("kullanici adi = "+kullanici.getIsim());
+        this.setKullanici(kullanici);
+        return "profile";
+    }
+    public List<Sinav> getSinavGetir(int pdilID){
+        return sinavDAO.sinavGetir(pdilID);
+    }
+    public void puanHesapla(){
+        this.setPuan(this.getDogruSayisi() * 20);
+    }
     public String flutterbar() {
         this.setBarControl(1);
-        this.setBar1("background-color: #198754; width: " + 30 + "%");
-        this.setBar2("background-color: #0dcaf0; width: " + 60 + "%");
-        this.setBar3("background-color: #ffc107; width: " + 90 + "%");
+        this.setBar1("background-color: #198754; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 2) + "%");
+        this.setBar2("background-color: #0dcaf0; width: " + 0 + "%");
+        this.setBar3("background-color: #ffc107; width: " + 0 + "%");
         return "profile";
     }
 
     public String swiftbar() {
         this.setBarControl(1);
-        this.setBar1("background-color: #ffc107; width: " + 90 + "%");
-        this.setBar2("background-color: #198754; width: " + 30 + "%");
-        this.setBar3("background-color: #0dcaf0; width: " + 60 + "%");
+        this.setBar1("background-color: #ffc107; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 4) + "%");
+        this.setBar2("background-color: #198754; width: " + 0 + "%");
+        this.setBar3("background-color: #0dcaf0; width: " + 0 + "%");
         return "profile";
     }
 
     public String javabar() {
         this.setBarControl(1);
-        this.setBar1("background-color: #0dcaf0; width: " + 60 + "%");
-        this.setBar2("background-color: #ffc107; width: " + 90 + "%");
-        this.setBar3("background-color: #198754; width: " + 30 + "%");
+        this.setBar1("background-color: #0dcaf0; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 3) + "%");
+        this.setBar2("background-color: #ffc107; width: " + 0 + "%");
+        this.setBar3("background-color: #198754; width: " + 0 + "%");
         return "profile";
     }
 
     public String getBarBir() {
         if (this.getBarControl() == 0) {
-            return "background-color: #198754; width: " + 30 + "%";
+            return "background-color: #198754; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 2) + "%";
         }
         return this.getBar1();
     }
 
     public String getBarIki() {
         if (this.getBarControl() == 0) {
-            return "background-color: #0dcaf0; width: " + 60 + "%";
+            return "background-color: #0dcaf0; width: " + 0 + "%";
         }
         return this.getBar2();
     }
 
     public String getBarUc() {
         if (this.getBarControl() == 0) {
-            return "background-color: #ffc107; width: " + 90 + "%";
+            return "background-color: #ffc107; width: " + 0 + "%";
         }
         return this.getBar3();
     }
 
-    public Sinav getSoru() {
-        this.setList(this.sinavDAO.read());
+    public Soru getSoru() {
+        this.setList(this.sinavDAO.read(getSinavId()));
         this.getSinav().setSoru(this.getList().get(getControl()).getSoru());
         this.getSinav().setCevap_bir(this.getList().get(getControl()).getCevap_bir());
         this.getSinav().setCevap_iki(this.getList().get(getControl()).getCevap_iki());
@@ -118,6 +141,16 @@ public class SinavController implements Serializable {
         this.getSinav().setCevap_dogru(this.getList().get(getControl()).getCevap_dogru());
 
         return this.sinav;
+    }
+
+    public int getSinavId() {
+        return sinavId;
+        
+    }
+
+    public String setSinavId(int sinavId) {
+        this.sinavId = sinavId;
+        return "quiz";
     }
 
     public void temizle() {
@@ -137,14 +170,14 @@ public class SinavController implements Serializable {
         return this.getCevapList().get(control + 1);
     }
 
-    public Sinav getSinav() {
+    public Soru getSinav() {
         if (this.sinav == null) {
-            this.sinav = new Sinav();
+            this.sinav = new Soru();
         }
         return sinav;
     }
 
-    public void setSinav(Sinav sinav) {
+    public void setSinav(Soru sinav) {
         this.sinav = sinav;
     }
 
@@ -156,14 +189,14 @@ public class SinavController implements Serializable {
         this.control = control;
     }
 
-    public List<Sinav> getList() {
+    public List<Soru> getList() {
         if (this.list == null) {
             this.list = new ArrayList<>();
         }
         return list;
     }
 
-    public void setList(List<Sinav> list) {
+    public void setList(List<Soru> list) {
         this.list = list;
     }
 
@@ -240,11 +273,11 @@ public class SinavController implements Serializable {
         this.sayfaControl = sayfaControl;
     }
 
-    public SinavDAO getSinavDAO() {
+    public SoruDAO getSinavDAO() {
         return sinavDAO;
     }
 
-    public void setSinavDAO(SinavDAO sinavDAO) {
+    public void setSinavDAO(SoruDAO sinavDAO) {
         this.sinavDAO = sinavDAO;
     }
 
@@ -310,5 +343,44 @@ public class SinavController implements Serializable {
     public void setDuzSecenek(DuzSecenek duzSecenek) {
         this.duzSecenek = duzSecenek;
     }
+
+    public int getDogruSayisi() {
+        return dogruSayisi;
+    }
+
+    public void setDogruSayisi(int dogruSayisi) {
+        this.dogruSayisi = dogruSayisi;
+    }
+
+    public int getPuan() {
+        return puan;
+    }
+
+    public void setPuan(int puan) {
+        this.puan = puan;
+    }
+
+    public SonucDAO getSonucDAO() {
+        if(this.sonucDAO == null){
+            this.sonucDAO = new SonucDAO();
+        }
+        return sonucDAO;
+    }
+
+    public void setSonucDAO(SonucDAO sonucDAO) {
+        this.sonucDAO = sonucDAO;
+    }
+
+    public Kullanici getKullanici() {
+        if(this.kullanici == null){
+            this.kullanici = new Kullanici();
+        }
+        return kullanici;
+    }
+
+    public void setKullanici(Kullanici kullanici) {
+        this.kullanici = kullanici;
+    }
+
     
 }

@@ -103,7 +103,7 @@
                                         <h:commandLink rendered="#{sinavController.control != 4}" action="#{sinavController.setControlArttir()}" class="btn btn-success btn-lg border-0 rounded-0" value="Sonraki" />
                                     </div>
                                     <div class="col d-inline ">
-                                        <h:commandLink rendered="#{sinavController.control == 4}" action="#{sinavController.bitir()}" class="btn btn-success btn-lg border-0 rounded-0" value="Bitir" />
+                                        <h:commandLink rendered="#{sinavController.control == 4}" action="#{sinavController.bitir(loginController.kullanici)}" class="btn btn-success btn-lg border-0 rounded-0" value="Bitir" />
                                     </div>
                                 </div>
                             </h:form>

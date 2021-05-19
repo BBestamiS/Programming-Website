@@ -43,7 +43,7 @@
         <div class=" row  d-none  d-lg-flex d-md-flex align-items-center " >
             <div class="text-center col-2">
                 <h:form>
-                    <h:commandLink class="nav-link link-primary fs-4" action="profile" value="Profil"/>
+                    <h:commandLink class="nav-link link-primary fs-4" action="#{sinavController.KullaniciEkle(loginController.kullanici)}" value="Profil"/>
                 </h:form>
             </div>
             <div class="col d-flex justify-content-center  border-bottom border-success">
@@ -134,11 +134,12 @@
                 <div class="col-auto me-2 mt-3">
                     <h:form>
                         <p class="text-center border-bottom border-dark m-0" style="color: black" >Sınavlar</p>
-                        <ul class="list-group">
-                            <li class="border-0 list-group-item">
-                                <h:commandLink class="nav-link link-success" action="quiz" value="Sınav 1"/>
-                            </li>
-                        </ul>
+                        <h:dataTable class="table" value="#{sinavController.getSinavGetir(anaEkranController.dil.dil_id)}" var="sinav">
+                        <h:column class="border-bottom-0 text-center">
+
+                            <h:commandLink class="nav-link link-success" action="#{sinavController.setSinavId(sinav.sinav_id)}" value="#{sinav.sinav_adi}"/>
+                        </h:column>
+                    </h:dataTable>
                     </h:form>
                 </div>
             </div>
@@ -206,17 +207,12 @@
 
                 <h:form>
                     <p class="text-center border-bottom border-dark m-0" style="color: black" >Sınavlar</p>
-                    <ul class="nav nav-pills mt-2">
-                        <div class="text-center" style='width: 100%'>
-                            <li class="nav-item">
+                    <h:dataTable class="table" value="#{sinavController.getSinavGetir(anaEkranController.dil.dil_id)}" var="sinav">
+                        <h:column class="border-bottom-0 text-center">
 
-                                <h:commandLink class="nav-link link-success" action="quiz" value="Sınav 1"/>
-                            </li>
-                        </div>
-
-
-
-                    </ul>
+                            <h:commandLink class="nav-link link-success" action="quiz" value="#{sinav.sinav_adi}"/>
+                        </h:column>
+                    </h:dataTable>
                 </h:form>
 
             </div>

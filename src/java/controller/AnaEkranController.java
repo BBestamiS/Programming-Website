@@ -8,6 +8,7 @@ package controller;
 import dao.KonuDAO;
 import dao.KullaniciDAO;
 import dao.PdilDAO;
+import dao.SoruDAO;
 import entity.Konu;
 import entity.Kullanici;
 import entity.Pdil;

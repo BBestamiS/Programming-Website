@@ -5,7 +5,7 @@
  */
 package controller;
 
-import entity.Sinav;
+import entity.Soru;
 import entity.Sonuc;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class SinavControllerStub{
     
-    private List<Sinav> list;
+    private List<Soru> list;
     private List<String> cevapList;
     private String birinciSecenek;
     private String ikinciSecenek;
@@ -52,9 +52,9 @@ public class SinavControllerStub{
    }
     
     public void sistemDoldur(){
-        Sinav soru1 = new Sinav(1,"pubspec.yaml dosyası nedir?","Main fonksiyonunun bulunduğu dosyadır","Projenin konfigürasyon dosyasıdır","Tasarım oluşturmak için kullanılır","Projenin derlenmesini sağlar","Projenin konfigürasyon dosyasıdır");
-        Sinav soru2 = new Sinav(2,"Flutter kaç tür widget içerir?","1","2","3","4","2");
-        Sinav soru3 = new Sinav(3,"Dart nedir?","Flutter uygulamaları geliştirmek için kullandığınız nesne yönelimli bir programlama dilidir.","Widgettir","Flutter derleyicisidir","Tasarım oluşturmamızı sağlar","Flutter uygulamaları geliştirmek için kullandığınız nesne yönelimli bir programlama dilidir.");
+        Soru soru1 = new Soru(1,"pubspec.yaml dosyası nedir?","Main fonksiyonunun bulunduğu dosyadır","Projenin konfigürasyon dosyasıdır","Tasarım oluşturmak için kullanılır","Projenin derlenmesini sağlar","Projenin konfigürasyon dosyasıdır",1);
+        Soru soru2 = new Soru(2,"Flutter kaç tür widget içerir?","1","2","3","4","2",1);
+        Soru soru3 = new Soru(3,"Dart nedir?","Flutter uygulamaları geliştirmek için kullandığınız nesne yönelimli bir programlama dilidir.","Widgettir","Flutter derleyicisidir","Tasarım oluşturmamızı sağlar","Flutter uygulamaları geliştirmek için kullandığınız nesne yönelimli bir programlama dilidir.",1);
         this.getList().add(soru1);
         this.getList().add(soru2);
         this.getList().add(soru3);
@@ -126,14 +126,14 @@ public class SinavControllerStub{
         this.dogruCevap = dogruCevap;
     }
 
-    public List<Sinav> getList() {
+    public List<Soru> getList() {
         if (this.list == null) {
             this.list = new ArrayList<>();
         }
         return list;
     }
 
-    public void setList(List<Sinav> list) {
+    public void setList(List<Soru> list) {
         this.list = list;
     }
 
