@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.DAOTemplate;
 import dao.SonucDAO;
 import dao.SoruDAO;
 import entity.Kullanici;
@@ -26,9 +27,9 @@ import javax.inject.Named;
 public class SinavController implements Serializable {
 
     private Soru sinav;
-    private SoruDAO sinavDAO = SoruDAO.getSinavDAO();
     private Sonuc sonuc;
-    private SonucDAO sonucDAO;
+    private SoruDAO soruDAO = SoruDAO.getSinavDAO();
+    private DAOTemplate sonucDAO;
     private int control;
     private int sayfaControl;
     private List<Soru> list;
@@ -70,25 +71,35 @@ public class SinavController implements Serializable {
             }
         }
         puanHesapla();
-        this.getSonucDAO().create(getPuan(), sinavId, this.getKullanici().getKullanici_id());
+        this.getSonucDAO().setSonuc(getPuan());
+        this.getSonucDAO().setSinav_id(sinavId);
+        this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
+        this.getSonucDAO().create();
         temizle();
 
         return "result";
     }
-    public String KullaniciEkle(Kullanici kullanici){
-        System.out.println("kullanici adi = "+kullanici.getIsim());
+
+    public String KullaniciEkle(Kullanici kullanici) {
+        System.out.println("kullanici adi = " + kullanici.getIsim());
         this.setKullanici(kullanici);
         return "profile";
     }
-    public List<Sinav> getSinavGetir(int pdilID){
-        return sinavDAO.sinavGetir(pdilID);
+
+    public List<Sinav> getSinavGetir(int pdilID) {
+        return soruDAO.sinavGetir(pdilID);
     }
-    public void puanHesapla(){
+
+    public void puanHesapla() {
         this.setPuan(this.getDogruSayisi() * 20);
     }
+
     public String flutterbar() {
         this.setBarControl(1);
-        this.setBar1("background-color: #198754; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 2) + "%");
+        this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
+        this.getSonucDAO().setPdil_id(2);
+        this.getSonucDAO().read();
+        this.setBar1("background-color: #198754; width: " + this.getSonucDAO().getSonuc() + "%");
         this.setBar2("background-color: #0dcaf0; width: " + 0 + "%");
         this.setBar3("background-color: #ffc107; width: " + 0 + "%");
         return "profile";
@@ -96,7 +107,10 @@ public class SinavController implements Serializable {
 
     public String swiftbar() {
         this.setBarControl(1);
-        this.setBar1("background-color: #ffc107; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 4) + "%");
+        this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
+        this.getSonucDAO().setPdil_id(4);
+        this.getSonucDAO().read();
+        this.setBar1("background-color: #ffc107; width: " + this.getSonucDAO().getSonuc() + "%");
         this.setBar2("background-color: #198754; width: " + 0 + "%");
         this.setBar3("background-color: #0dcaf0; width: " + 0 + "%");
         return "profile";
@@ -104,7 +118,10 @@ public class SinavController implements Serializable {
 
     public String javabar() {
         this.setBarControl(1);
-        this.setBar1("background-color: #0dcaf0; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 3) + "%");
+        this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
+        this.getSonucDAO().setPdil_id(3);
+        this.getSonucDAO().read();
+        this.setBar1("background-color: #0dcaf0; width: " + this.getSonucDAO().getSonuc() + "%");
         this.setBar2("background-color: #ffc107; width: " + 0 + "%");
         this.setBar3("background-color: #198754; width: " + 0 + "%");
         return "profile";
@@ -112,7 +129,10 @@ public class SinavController implements Serializable {
 
     public String getBarBir() {
         if (this.getBarControl() == 0) {
-            return "background-color: #198754; width: " + this.getSonucDAO().read(this.getKullanici().getKullanici_id(), 2) + "%";
+            this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
+            this.getSonucDAO().setPdil_id(2);
+            this.getSonucDAO().read();
+            return "background-color: #198754; width: " + this.getSonucDAO().getSonuc() + "%";
         }
         return this.getBar1();
     }
@@ -131,8 +151,8 @@ public class SinavController implements Serializable {
         return this.getBar3();
     }
 
-    public Soru getSoru() {
-        this.setList(this.sinavDAO.read(getSinavId()));
+   public Soru getSoru() {
+        this.setList(this.soruDAO.read(getSinavId()));
         this.getSinav().setSoru(this.getList().get(getControl()).getSoru());
         this.getSinav().setCevap_bir(this.getList().get(getControl()).getCevap_bir());
         this.getSinav().setCevap_iki(this.getList().get(getControl()).getCevap_iki());
@@ -145,7 +165,7 @@ public class SinavController implements Serializable {
 
     public int getSinavId() {
         return sinavId;
-        
+
     }
 
     public String setSinavId(int sinavId) {
@@ -273,14 +293,6 @@ public class SinavController implements Serializable {
         this.sayfaControl = sayfaControl;
     }
 
-    public SoruDAO getSinavDAO() {
-        return sinavDAO;
-    }
-
-    public void setSinavDAO(SoruDAO sinavDAO) {
-        this.sinavDAO = sinavDAO;
-    }
-
     public String getBar1() {
         return bar1;
     }
@@ -313,8 +325,6 @@ public class SinavController implements Serializable {
         this.barControl = barControl;
     }
 
-    
-
     public SecenekAdapter getSoruAdapter() {
         if (this.secenekAdapter == null) {
             this.secenekAdapter = new SecenekAdapter();
@@ -323,7 +333,7 @@ public class SinavController implements Serializable {
     }
 
     public SecenekAdapter getSecenekAdapter() {
-        if(this.secenekAdapter == null){
+        if (this.secenekAdapter == null) {
             this.secenekAdapter = new SecenekAdapter();
         }
         return secenekAdapter;
@@ -334,7 +344,7 @@ public class SinavController implements Serializable {
     }
 
     public DuzSecenek getDuzSecenek() {
-        if(this.duzSecenek == null){
+        if (this.duzSecenek == null) {
             this.duzSecenek = new DuzSecenek();
         }
         return duzSecenek;
@@ -360,19 +370,8 @@ public class SinavController implements Serializable {
         this.puan = puan;
     }
 
-    public SonucDAO getSonucDAO() {
-        if(this.sonucDAO == null){
-            this.sonucDAO = new SonucDAO();
-        }
-        return sonucDAO;
-    }
-
-    public void setSonucDAO(SonucDAO sonucDAO) {
-        this.sonucDAO = sonucDAO;
-    }
-
     public Kullanici getKullanici() {
-        if(this.kullanici == null){
+        if (this.kullanici == null) {
             this.kullanici = new Kullanici();
         }
         return kullanici;
@@ -382,5 +381,17 @@ public class SinavController implements Serializable {
         this.kullanici = kullanici;
     }
 
+    public DAOTemplate getSonucDAO() {
+        if (this.sonucDAO == null) {
+            this.sonucDAO = new SonucDAO();
+        }
+        return sonucDAO;
+    }
+
+    public void setSonucDAO(DAOTemplate sonucDAO) {
+        this.sonucDAO = sonucDAO;
+    }
+
     
+
 }

@@ -5,7 +5,6 @@
  */
 package dao;
 
-import dao.KullaniciDAO;
 import entity.Kullanici;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,10 @@ import java.util.List;
  *
  * @author bbestamis
  */
-public class KullaniciDAOStub extends KullaniciDAO {
+public class KullaniciDAOStub {
 
     private List<Kullanici> kullaniciList = null;
 
-    @Override
     public Kullanici login(Kullanici kullanici) {
         Kullanici tmp = null;
         List<Kullanici> list = new ArrayList<>();
@@ -39,7 +37,6 @@ public class KullaniciDAOStub extends KullaniciDAO {
         return tmp;
     }
 
-    @Override
     public void create(Kullanici kullanici) {
         int a = 0;
         try {
@@ -59,7 +56,6 @@ public class KullaniciDAOStub extends KullaniciDAO {
         }
     }
 
-    @Override
     public void delete(Kullanici kullanici) {
         int a = 0;
         try {

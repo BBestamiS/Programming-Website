@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.DAOTemplate;
 import dao.KullaniciDAO;
 import entity.Kullanici;
 import java.io.Serializable;
@@ -21,12 +22,11 @@ import javax.inject.Named;
 public class LoginController implements Serializable {
 
     private Kullanici kullanici;
-    private KullaniciDAO kullaniciDAO = KullaniciDAO.getKullaniciDAO();
     private String control;
     private int loginPage;
-
+    private DAOTemplate kullaniciDAO;
     public String login(){
-        setKullanici(kullaniciDAO.login(getKullanici()));
+        setKullanici(this.getKullaniciDAO().login(getKullanici()));
         if(this.getGelenKullanici() == null){
             mesajYazdir();
            return "index";
@@ -43,17 +43,20 @@ public class LoginController implements Serializable {
     }
     public void create() {
         System.out.println(this.kullanici.getIsim());
-        this.kullaniciDAO.create(kullanici);
+        this.getKullaniciDAO().setKullanici(kullanici);
+        this.getKullaniciDAO().create();
         mesajKaldir();
         gitLoginPage();
     }
 
     public List<Kullanici> getRead() {
-        return this.kullaniciDAO.read();
+        this.getKullaniciDAO().read();
+        return this.getKullaniciDAO().getKullanici_list();
     }
 
     public String delete(Kullanici kullanici) {
-        this.kullaniciDAO.delete(kullanici);
+        this.getKullaniciDAO().setKullanici(kullanici);
+        this.getKullaniciDAO().delete();
         return "index";
     }
     
@@ -93,6 +96,17 @@ public class LoginController implements Serializable {
     }
     public void gitLoginPage(){
         this.setLoginPage(0);
+    }
+
+    public DAOTemplate getKullaniciDAO() {
+        if(this.kullaniciDAO == null){
+            this.kullaniciDAO = new KullaniciDAO();
+        }
+        return kullaniciDAO;
+    }
+
+    public void setKullaniciDAO(KullaniciDAO kullaniciDAO) {
+        this.kullaniciDAO = kullaniciDAO;
     }
 
    

@@ -7,87 +7,60 @@ package dao;
 
 import entity.Kullanici;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import util.DBConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author bbestamis
  */
-public class KullaniciDAO{
-    private static KullaniciDAO kullaniciDAO = null;
-    public KullaniciDAO() {
-    }
+public class KullaniciDAO extends DAOTemplate{
 
-    public static KullaniciDAO getKullaniciDAO() {
-         if(kullaniciDAO == null){
-           synchronized (KullaniciDAO.class){
-               if(kullaniciDAO == null){
-                   kullaniciDAO = new KullaniciDAO();
-               }
-           }
-        }
-        return kullaniciDAO;
-    }
-    
-    DBConnection dBConnection = util.DBConnection.getdBConnection();
-    public Kullanici login(Kullanici kullanici){
-     
-        Kullanici tmp = null;
-        List<Kullanici> list = new ArrayList<>();
-        
+    @Override
+    public void readResultSet() {
         try {
-            list = read();
-            for (int i = 0; i < list.size(); i++) {
-                if(list.get(i).getEmail().equals(kullanici.getEmail()) && list.get(i).getParola().equals(kullanici.getParola())){
-              
-                    tmp = list.get(i);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return tmp;
-    }
-  
-    public void create(Kullanici kullanici) {
-        try {
-            Statement st = dBConnection.getConnection().createStatement();
-            st.executeUpdate("insert into kullanici (isim,email,parola) values ('" + kullanici.getIsim() + "','" + kullanici.getEmail() + "','" + kullanici.getParola() + "')");
-            System.out.println("ekleme başarılı"+kullanici.getIsim()+kullanici.getEmail()+kullanici.getParola());
-        } catch (Exception e) {
-            System.out.println("ekleme başarısız"+kullanici.getIsim()+kullanici.getEmail()+kullanici.getParola());
-            System.out.println(e.getMessage());
+           rs = st.executeQuery("select * from kullanici");
+        } catch (SQLException ex) {
+            Logger.getLogger(KullaniciDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public List<Kullanici> read() {
-        List<Kullanici> list = new ArrayList<>();
+    @Override
+    public void okumaIslemi() {
         try {
-            Statement st = dBConnection.getConnection().createStatement();
-
-            ResultSet rs = st.executeQuery("select * from kullanici");
-
+            kullanici_list = new ArrayList<>();
             while (rs.next()) {
                 Kullanici tmp = new Kullanici(rs.getInt("kullanici_id"), rs.getString("isim"), rs.getString("email"), rs.getString("parola"));
-                list.add(tmp);
+                System.out.println("kullanici adı = "+rs.getString("isim"));
+                kullanici_list.add(tmp);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(KullaniciDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
     }
 
-    public void delete(Kullanici kullanici) {
+    @Override
+    public void createResultSet() {
         try {
-            Statement st = dBConnection.getConnection().createStatement();
-            st.executeUpdate("delete from kullanici where kullanici_id=" + kullanici.getKullanici_id());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            st.executeUpdate("insert into kullanici (isim,email,parola) values ('" + getKullanici().getIsim() + "','" + getKullanici().getEmail() + "','" + getKullanici().getParola() + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(KullaniciDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     @Override
+    public void deleteResultSet() {
+        try {
+            st.executeUpdate("delete from kullanici where kullanici_id=" + getKullanici().getKullanici_id());
+        } catch (SQLException ex) {
+            Logger.getLogger(KullaniciDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+ 
+   
 
    
 }

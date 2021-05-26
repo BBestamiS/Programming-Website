@@ -7,62 +7,55 @@ package dao;
 
 import entity.Konu;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import util.DBConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author bbestamis
  */
-public class KonuDAO {
+public class KonuDAO extends DAOTemplate{
+    
 
-    private static KonuDAO konuDAO = null;
-
-    private KonuDAO() {
-    }
-
-    public static KonuDAO getKonuDAO() {
-        if (konuDAO == null) {
-            synchronized (KonuDAO.class) {
-                if (konuDAO == null) {
-                    konuDAO = new KonuDAO();
-                }
-            }
-        }
-        return konuDAO;
-    }
-    DBConnection dBConnection = util.DBConnection.getdBConnection();
-
-    public List<Konu> read(int dil_id) {
-        List<Konu> list = new ArrayList<>();
+    
+     @Override
+    public void readResultSet() {
         try {
-            Statement st = dBConnection.getConnection().createStatement();
+            if(this.getKontrol() == 0){
+                rs = st.executeQuery("select * from konu where dil_id=" + getDil_id());
+            }else{
+                rs = st.executeQuery("select * from konu");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KonuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-            ResultSet rs = st.executeQuery("select * from konu where dil_id=" + dil_id);
+    @Override
+    public void okumaIslemi() {
+        try {
+            konu_list = new ArrayList<>();
             while (rs.next()) {
                 Konu tmp = new Konu(rs.getInt("konu_id"), rs.getString("konu"), rs.getString("video_link"), rs.getInt("dil_id"));
-                list.add(tmp);
+                konu_list.add(tmp);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(KonuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
     }
-    public List<Konu> read() {
-        List<Konu> list = new ArrayList<>();
-        try {
-            Statement st = dBConnection.getConnection().createStatement();
 
-            ResultSet rs = st.executeQuery("select * from konu");
-            while (rs.next()) {
-                Konu tmp = new Konu(rs.getInt("konu_id"), rs.getString("konu"), rs.getString("video_link"), rs.getInt("dil_id"));
-                list.add(tmp);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return list;
+    @Override
+    public void deleteResultSet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void createResultSet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
 }

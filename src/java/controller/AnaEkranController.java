@@ -5,10 +5,8 @@
  */
 package controller;
 
+import dao.DAOTemplate;
 import dao.KonuDAO;
-import dao.KullaniciDAO;
-import dao.PdilDAO;
-import dao.SoruDAO;
 import entity.Konu;
 import entity.Kullanici;
 import entity.Pdil;
@@ -27,28 +25,34 @@ import javax.inject.Named;
 public class AnaEkranController implements Serializable {
 
     private Konu konu;
-    private KonuDAO konuDAO = KonuDAO.getKonuDAO();
     private Pdil dil;
-    private PdilDAO dilDAO = PdilDAO.getDilDAO();
     private Kullanici kullanici;
-    private KullaniciDAO kullaniciDAO = KullaniciDAO.getKullaniciDAO();
     private List<Konu> konularList;
+    private DAOTemplate konuDAOTemplate;
 
     public List<Konu> getkonuGetir() {
          if(this.konularList == null){
             this.konularList = new ArrayList<>();
-            this.konularList = this.konuDAO.read();
+            this.getKonuDAOTemplate().setKontrol(1);
+            this.getKonuDAOTemplate().read();
+            this.konularList = this.getKonuDAOTemplate().getKonu_list();
         }
-        return this.konuDAO.read(this.getDil().getDil_id());
+        this.getKonuDAOTemplate().setKontrol(0);
+        this.getKonuDAOTemplate().read();
+        this.getKonuDAOTemplate().setDil_id(this.getDil().getDil_id());
+        return this.getKonuDAOTemplate().getKonu_list();
     }
     public List<Konu> getkonularıGetir() {
-       
         return this.konularList;
     }
 
     public String dilDegistir(int dil_id) {
         this.getDil().setDil_id(dil_id);
-        this.setKonu(this.konuDAO.read(this.getDil().getDil_id()).get(0));
+        this.getKonuDAOTemplate().setKontrol(0);
+        this.getKonuDAOTemplate().setDil_id(dil_id);
+        this.getKonuDAOTemplate().read();
+        System.out.println("konu = "+this.getKonuDAOTemplate().getKonu_list().get(0).getKonu());
+        this.setKonu(this.getKonuDAOTemplate().getKonu_list().get(0));
         return "homePage";
     }
 
@@ -96,6 +100,17 @@ public class AnaEkranController implements Serializable {
 
     public void setKullanici(Kullanici kullanici) {
         this.kullanici = kullanici;
+    }
+
+    public DAOTemplate getKonuDAOTemplate() {
+        if (this.konuDAOTemplate == null) {
+            this.konuDAOTemplate = new KonuDAO();
+        }
+        return konuDAOTemplate;
+    }
+
+    public void setKonuDAOTemplate(DAOTemplate konuDAOTemplate) {
+        this.konuDAOTemplate = konuDAOTemplate;
     }
 
 }
