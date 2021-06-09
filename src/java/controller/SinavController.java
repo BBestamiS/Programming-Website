@@ -99,9 +99,8 @@ public class SinavController implements Serializable {
         this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
         this.getSonucDAO().setPdil_id(2);
         this.getSonucDAO().read();
-        this.setBar1("background-color: #198754; width: " + this.getSonucDAO().getSonuc() + "%");
-        this.setBar2("background-color: #0dcaf0; width: " + 0 + "%");
-        this.setBar3("background-color: #ffc107; width: " + 0 + "%");
+        this.setBar1("background-color: #198754; width: " + this.getSonucDAO().getSonucl().getSonucBir() + "%");
+        this.setBar2("background-color: #0dcaf0; width: " + this.getSonucDAO().getSonucl().getSonucIki() + "%");
         return "profile";
     }
 
@@ -110,9 +109,8 @@ public class SinavController implements Serializable {
         this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
         this.getSonucDAO().setPdil_id(4);
         this.getSonucDAO().read();
-        this.setBar1("background-color: #ffc107; width: " + this.getSonucDAO().getSonuc() + "%");
-        this.setBar2("background-color: #198754; width: " + 0 + "%");
-        this.setBar3("background-color: #0dcaf0; width: " + 0 + "%");
+        this.setBar1("background-color: #ffc107; width: " + this.getSonucDAO().getSonucl().getSonucBir() + "%");
+        this.setBar2("background-color: #198754; width: " + this.getSonucDAO().getSonucl().getSonucIki() + "%");
         return "profile";
     }
 
@@ -121,9 +119,8 @@ public class SinavController implements Serializable {
         this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
         this.getSonucDAO().setPdil_id(3);
         this.getSonucDAO().read();
-        this.setBar1("background-color: #0dcaf0; width: " + this.getSonucDAO().getSonuc() + "%");
-        this.setBar2("background-color: #ffc107; width: " + 0 + "%");
-        this.setBar3("background-color: #198754; width: " + 0 + "%");
+        this.setBar1("background-color: #0dcaf0; width: " + this.getSonucDAO().getSonucl().getSonucBir() + "%");
+        this.setBar2("background-color: #ffc107; width: " + this.getSonucDAO().getSonucl().getSonucIki() + "%");
         return "profile";
     }
 
@@ -132,23 +129,16 @@ public class SinavController implements Serializable {
             this.getSonucDAO().setKullanici_id(this.getKullanici().getKullanici_id());
             this.getSonucDAO().setPdil_id(2);
             this.getSonucDAO().read();
-            return "background-color: #198754; width: " + this.getSonucDAO().getSonuc() + "%";
+            return "background-color: #198754; width: " + this.getSonucDAO().getSonucl().getSonucBir() + "%";
         }
         return this.getBar1();
     }
 
     public String getBarIki() {
         if (this.getBarControl() == 0) {
-            return "background-color: #0dcaf0; width: " + 0 + "%";
+            return "background-color: #0dcaf0; width: " + this.getSonucDAO().getSonucl().getSonucIki() + "%";
         }
         return this.getBar2();
-    }
-
-    public String getBarUc() {
-        if (this.getBarControl() == 0) {
-            return "background-color: #ffc107; width: " + 0 + "%";
-        }
-        return this.getBar3();
     }
 
    public Soru getSoru() {

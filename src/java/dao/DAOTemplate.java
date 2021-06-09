@@ -10,6 +10,7 @@ import entity.Kullanici;
 import entity.Not;
 import entity.Pdil;
 import entity.Sinav;
+import entity.SonucL;
 import entity.Soru;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -30,6 +31,7 @@ public abstract class DAOTemplate {
     private int dil_id;
     private int pdil_id;
     private int kontrol;
+    private SonucL sonucl;
     private Not not;
     private int sonuc;
     private int sinav_id;
@@ -197,13 +199,7 @@ public abstract class DAOTemplate {
         this.dil = dil;
     }
 
-    public int getSonuc() {
-        return sonuc;
-    }
-
-    public void setSonuc(int sonuc) {
-        this.sonuc = sonuc;
-    }
+ 
 
     public int getSinav_id() {
         return sinav_id;
@@ -227,6 +223,25 @@ public abstract class DAOTemplate {
 
     public void setSoru_list(List<Soru> soru_list) {
         this.soru_list = soru_list;
+    }
+
+    public int getSonuc() {
+        return sonuc;
+    }
+
+    public void setSonuc(int sonuc) {
+        this.sonuc = sonuc;
+    }
+
+    public SonucL getSonucl() {
+        if (this.sonucl == null) {
+            this.sonucl = new SonucL();
+        }
+        return sonucl;
+    }
+
+    public void setSonucl(SonucL sonucl) {
+        this.sonucl = sonucl;
     }
 
   
